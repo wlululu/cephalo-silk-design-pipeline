@@ -1,0 +1,90 @@
+{
+  "date": "2026-09-10T00:29:58.063Z",
+  "tests": [
+    {
+      "name": "Cantilever axial extension PL/EA",
+      "status": "passed"
+    },
+    {
+      "name": "Cantilever bending in both planes PL³/3EI and tip rotation",
+      "status": "passed"
+    },
+    {
+      "name": "Cantilever torsion TL/GJ",
+      "status": "passed"
+    },
+    {
+      "name": "Rotated member frame invariance",
+      "status": "passed"
+    },
+    {
+      "name": "Connected graph with no duplicate or zero-length members",
+      "status": "passed"
+    },
+    {
+      "name": "Applied pressure equals q × span × width",
+      "status": "passed"
+    },
+    {
+      "name": "Force and moment equilibrium / free DOF residual",
+      "status": "passed"
+    },
+    {
+      "name": "All constrained displacements and rotations vanish",
+      "status": "passed"
+    },
+    {
+      "name": "Longitudinal and transverse symmetry for uniform loading",
+      "status": "passed"
+    },
+    {
+      "name": "Greater pressure increases deck displacement; nonlinear equilibrium is maintained",
+      "status": "passed"
+    },
+    {
+      "name": "Greater E reduces deck displacement for the hybrid model",
+      "status": "passed"
+    },
+    {
+      "name": "Larger sections reduce uniform-load displacement",
+      "status": "passed"
+    },
+    {
+      "name": "Half-span / midspan / selected-node load magnitudes",
+      "status": "passed"
+    },
+    {
+      "name": "Prestress-only configuration equilibrates with nonnegative cable forces",
+      "status": "passed"
+    },
+    {
+      "name": "Missing restraints detected without artificial stabilization",
+      "status": "passed"
+    },
+    {
+      "name": "Full 156 m travel corridor clears all frame envelopes at maximum section scales",
+      "status": "passed"
+    },
+    {
+      "name": "Continuous level deck, approaches and outboard connected root fans",
+      "status": "passed"
+    }
+  ],
+  "baseline": {
+    "nodes": 762,
+    "members": 3155,
+    "maxDisplacement_mm": 76.8779380859019,
+    "maxDeckDisplacement_mm": 36.74593686122058,
+    "cables": {
+      "total": 554,
+      "taut": 542,
+      "slack": 12
+    },
+    "totalVerticalLoad_kN": -8400,
+    "totalVerticalReaction_kN": 8400,
+    "relativeResidual": 4.52837511751583e-13,
+    "maxNormalStressYieldRatio": 0.5359903168363436,
+    "maxEulerScreeningRatio": 5.628836497234697
+  },
+  "limits": "Analytical and consistency checks validate this implementation, not image reconstruction accuracy or a real bridge."
+}

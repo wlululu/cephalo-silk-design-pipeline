@@ -1,0 +1,289 @@
+{
+  "created_at": "2026-09-10T05:10:29.548238+00:00",
+  "source_commit": "3f61ab00809b93a4514edffe60933e1b9aaa81dd",
+  "isolation": "One fresh Node process per run; original generator and solver; no solver edits or cache reuse. Factor 1 shares each case baseline.",
+  "thresholds": {
+    "global_force_relative": 1e-06,
+    "global_moment_relative": 1e-06,
+    "linear_scaling_relative": 0.0001,
+    "monotonic_relative_tolerance": 0.0001,
+    "symmetry_displacement_relative": 0.001,
+    "symmetry_geometry_m": 1e-06,
+    "substantial_cable_state_change_fraction": 0.1
+  },
+  "moment_normalization": "Sum of ||r cross F|| and ||applied nodal moment|| over external nodal loads, origin (0,0,0); floor 1 Nm.",
+  "force_normalization": "Sum of norms of external nodal load vectors, floor 1 N.",
+  "classification": "Pass: stated diagnostic met. Partial: explained formulation/active-state limitation or inapplicability. Fail: failed solve or unexplained numerical/mechanics inconsistency. These are study thresholds, not design acceptance standards.",
+  "runs": [
+    {
+      "case": "bridge",
+      "id": "bridge-baseline",
+      "test": "baseline",
+      "parameter": "defaults",
+      "factor": 1,
+      "baseline_value": null,
+      "perturbed_value": null,
+      "overrides": {}
+    },
+    {
+      "case": "bridge",
+      "id": "bridge-load-0.5",
+      "test": "load",
+      "parameter": "pressure",
+      "factor": 0.5,
+      "baseline_value": 5,
+      "perturbed_value": 2.5,
+      "overrides": {
+        "pressure": 2.5
+      }
+    },
+    {
+      "case": "bridge",
+      "id": "bridge-load-2",
+      "test": "load",
+      "parameter": "pressure",
+      "factor": 2,
+      "baseline_value": 5,
+      "perturbed_value": 10,
+      "overrides": {
+        "pressure": 10
+      }
+    },
+    {
+      "case": "bridge",
+      "id": "bridge-stiffness-0.5",
+      "test": "stiffness",
+      "parameter": "E",
+      "factor": 0.5,
+      "baseline_value": 200,
+      "perturbed_value": 100.0,
+      "overrides": {
+        "E": 100.0
+      }
+    },
+    {
+      "case": "bridge",
+      "id": "bridge-stiffness-2",
+      "test": "stiffness",
+      "parameter": "E",
+      "factor": 2,
+      "baseline_value": 200,
+      "perturbed_value": 400,
+      "overrides": {
+        "E": 400
+      }
+    },
+    {
+      "case": "bridge",
+      "id": "bridge-section-primary-0.75",
+      "test": "section-primary",
+      "parameter": "primaryScale",
+      "factor": 0.75,
+      "baseline_value": 1,
+      "perturbed_value": 0.75,
+      "overrides": {
+        "primaryScale": 0.75
+      }
+    },
+    {
+      "case": "bridge",
+      "id": "bridge-section-primary-1.25",
+      "test": "section-primary",
+      "parameter": "primaryScale",
+      "factor": 1.25,
+      "baseline_value": 1,
+      "perturbed_value": 1.25,
+      "overrides": {
+        "primaryScale": 1.25
+      }
+    },
+    {
+      "case": "bridge",
+      "id": "bridge-section-secondary-0.75",
+      "test": "section-secondary",
+      "parameter": "secondaryScale",
+      "factor": 0.75,
+      "baseline_value": 1,
+      "perturbed_value": 0.75,
+      "overrides": {
+        "secondaryScale": 0.75
+      }
+    },
+    {
+      "case": "bridge",
+      "id": "bridge-section-secondary-1.25",
+      "test": "section-secondary",
+      "parameter": "secondaryScale",
+      "factor": 1.25,
+      "baseline_value": 1,
+      "perturbed_value": 1.25,
+      "overrides": {
+        "secondaryScale": 1.25
+      }
+    },
+    {
+      "case": "loop-towers",
+      "id": "loop-towers-baseline",
+      "test": "baseline",
+      "parameter": "defaults",
+      "factor": 1,
+      "baseline_value": null,
+      "perturbed_value": null,
+      "overrides": {}
+    },
+    {
+      "case": "loop-towers",
+      "id": "loop-towers-load-0.5",
+      "test": "load",
+      "parameter": "load",
+      "factor": 0.5,
+      "baseline_value": 1,
+      "perturbed_value": 0.5,
+      "overrides": {
+        "load": 0.5
+      }
+    },
+    {
+      "case": "loop-towers",
+      "id": "loop-towers-load-2",
+      "test": "load",
+      "parameter": "load",
+      "factor": 2,
+      "baseline_value": 1,
+      "perturbed_value": 2,
+      "overrides": {
+        "load": 2
+      }
+    },
+    {
+      "case": "loop-towers",
+      "id": "loop-towers-stiffness-0.5",
+      "test": "stiffness",
+      "parameter": "stiffness",
+      "factor": 0.5,
+      "baseline_value": 1,
+      "perturbed_value": 0.5,
+      "overrides": {
+        "stiffness": 0.5
+      }
+    },
+    {
+      "case": "loop-towers",
+      "id": "loop-towers-stiffness-2",
+      "test": "stiffness",
+      "parameter": "stiffness",
+      "factor": 2,
+      "baseline_value": 1,
+      "perturbed_value": 2,
+      "overrides": {
+        "stiffness": 2
+      }
+    },
+    {
+      "case": "loop-towers",
+      "id": "loop-towers-section-0.75",
+      "test": "section",
+      "parameter": "thickness",
+      "factor": 0.75,
+      "baseline_value": 1,
+      "perturbed_value": 0.75,
+      "overrides": {
+        "thickness": 0.75
+      }
+    },
+    {
+      "case": "loop-towers",
+      "id": "loop-towers-section-1.25",
+      "test": "section",
+      "parameter": "thickness",
+      "factor": 1.25,
+      "baseline_value": 1,
+      "perturbed_value": 1.25,
+      "overrides": {
+        "thickness": 1.25
+      }
+    },
+    {
+      "case": "pavilion",
+      "id": "pavilion-baseline",
+      "test": "baseline",
+      "parameter": "defaults",
+      "factor": 1,
+      "baseline_value": null,
+      "perturbed_value": null,
+      "overrides": {}
+    },
+    {
+      "case": "pavilion",
+      "id": "pavilion-load-0.5",
+      "test": "load",
+      "parameter": "pressure",
+      "factor": 0.5,
+      "baseline_value": 300,
+      "perturbed_value": 150.0,
+      "overrides": {
+        "pressure": 150.0
+      }
+    },
+    {
+      "case": "pavilion",
+      "id": "pavilion-load-2",
+      "test": "load",
+      "parameter": "pressure",
+      "factor": 2,
+      "baseline_value": 300,
+      "perturbed_value": 600,
+      "overrides": {
+        "pressure": 600
+      }
+    },
+    {
+      "case": "pavilion",
+      "id": "pavilion-stiffness-0.5",
+      "test": "stiffness",
+      "parameter": "stiffness",
+      "factor": 0.5,
+      "baseline_value": 1,
+      "perturbed_value": 0.5,
+      "overrides": {
+        "stiffness": 0.5
+      }
+    },
+    {
+      "case": "pavilion",
+      "id": "pavilion-stiffness-2",
+      "test": "stiffness",
+      "parameter": "stiffness",
+      "factor": 2,
+      "baseline_value": 1,
+      "perturbed_value": 2,
+      "overrides": {
+        "stiffness": 2
+      }
+    },
+    {
+      "case": "pavilion",
+      "id": "pavilion-section-0.75",
+      "test": "section",
+      "parameter": "thickness",
+      "factor": 0.75,
+      "baseline_value": 1,
+      "perturbed_value": 0.75,
+      "overrides": {
+        "thickness": 0.75
+      }
+    },
+    {
+      "case": "pavilion",
+      "id": "pavilion-section-1.25",
+      "test": "section",
+      "parameter": "thickness",
+      "factor": 1.25,
+      "baseline_value": 1,
+      "perturbed_value": 1.25,
+      "overrides": {
+        "thickness": 1.25
+      }
+    }
+  ]
+}

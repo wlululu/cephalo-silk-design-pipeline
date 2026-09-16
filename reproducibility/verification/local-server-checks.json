@@ -1,0 +1,14 @@
+[
+  {
+    "command": "npm run dev",
+    "url": "http://127.0.0.1:5173/",
+    "status": 200,
+    "title": true
+  },
+  {
+    "command": "npm run preview",
+    "url": "http://127.0.0.1:4173/",
+    "status": 200,
+    "title": true
+  }
+]

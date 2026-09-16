@@ -1,0 +1,16 @@
+[
+  {
+    "prefix": "/",
+    "public_files_checked": 61,
+    "source_archive": true,
+    "validation": true,
+    "status": "pass"
+  },
+  {
+    "prefix": "/cephalo-structural-lab/",
+    "public_files_checked": 61,
+    "source_archive": true,
+    "validation": true,
+    "status": "pass"
+  }
+]

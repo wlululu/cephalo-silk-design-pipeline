@@ -1,0 +1,113 @@
+{
+  "scope": "Standalone deployment smoke checks; no model or scientific-result edits",
+  "route_prefix": "/cephalo-structural-lab/",
+  "renderer": "Existing software renderer; WebGL disabled in test browser",
+  "cases": [
+    {
+      "case": "bridge",
+      "baseline": {
+        "max_deck_displacement_mm_display": 36.7,
+        "vertical_reaction_kN_display": 8400,
+        "peak_normal_stress_over_fy_display": 0.536,
+        "relative_residual_display": "4.5e-13",
+        "status": "Converged"
+      },
+      "control": {
+        "parameter": "pressure",
+        "before_kPa": 5,
+        "after_kPa": 4.5
+      },
+      "changed": {
+        "max_deck_displacement_mm_display": 31.8,
+        "vertical_reaction_kN_display": 7560,
+        "peak_normal_stress_over_fy_display": 0.483,
+        "relative_residual_display": "3.5e-11",
+        "status": "Converged"
+      },
+      "views_checked": [
+        "Geometry",
+        "Structure",
+        "Response (deformed, stress/fy, x100)",
+        "Front",
+        "Fit model"
+      ],
+      "return_to_case": {
+        "pressure_kPa": 5,
+        "baseline_restored": true
+      }
+    },
+    {
+      "case": "loop-towers",
+      "baseline": {
+        "max_displacement_mm_display": 23.1,
+        "peak_axial_force_kN_display": 10020,
+        "slack_cables": 34,
+        "total_cables": 46,
+        "relative_residual_display": "9.2e-9",
+        "status": "Converged"
+      },
+      "control": {
+        "parameter": "load",
+        "before": 1,
+        "after": 1.1
+      },
+      "changed": {
+        "max_displacement_mm_display": 25.4,
+        "peak_axial_force_kN_display": 11022,
+        "slack_cables": 34,
+        "relative_residual_display": "8.3e-9",
+        "status": "Converged"
+      },
+      "views_checked": [
+        "Geometry",
+        "Structure",
+        "Response (deformed, axial force, x100)",
+        "Front",
+        "Fit model"
+      ],
+      "return_to_case": {
+        "load": 1,
+        "baseline_restored": true
+      }
+    },
+    {
+      "case": "pavilion",
+      "baseline": {
+        "max_displacement_mm_display": 139.5,
+        "applied_resultant_kN_display": 177,
+        "peak_axial_force_kN_display": 45.1,
+        "relative_residual_display": "8.3e-8",
+        "status": "Converged"
+      },
+      "control": {
+        "parameter": "pressure",
+        "before_Pa": 300,
+        "after_Pa": 325
+      },
+      "changed": {
+        "max_displacement_mm_display": 151.1,
+        "applied_resultant_kN_display": 191.8,
+        "peak_axial_force_kN_display": 48.8,
+        "relative_residual_display": "9.7e-8",
+        "status": "Converged"
+      },
+      "views_checked": [
+        "Geometry",
+        "Structure",
+        "Response (deformed, axial force, x15)",
+        "Front",
+        "Fit model"
+      ],
+      "return_to_case": {
+        "pressure_Pa": 300,
+        "baseline_restored": true
+      }
+    }
+  ],
+  "limits": [
+    "Browser numbers are displayed rounded values; full numerical equivalence is tested independently in integration-report.json.",
+    "GPU rasterization was not available; rendering source and vendored libraries are preserved.",
+    "Browser download bytes were not captured; static asset and archive bytes were verified programmatically.",
+    "Browser extension metadata errors and expected WebGL-creation errors were observed; all case analyses and software views loaded."
+  ]
+}

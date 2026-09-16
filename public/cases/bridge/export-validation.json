@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "geometry": "same geometry factory and exporters as browser",
+  "glbVersion": 2,
+  "glbBytes": 11380748,
+  "memberNodes": 3155,
+  "meshes": 3316,
+  "stlTriangles": 106068,
+  "stlBytes": 5303484
+}

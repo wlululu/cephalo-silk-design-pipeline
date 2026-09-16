@@ -1,0 +1,1 @@
+import {solve} from './solver.js';self.onmessage=e=>{try{self.postMessage({id:e.data.id,result:solve(e.data.model,e.data.params)});}catch(error){self.postMessage({id:e.data.id,error:error.message});}};

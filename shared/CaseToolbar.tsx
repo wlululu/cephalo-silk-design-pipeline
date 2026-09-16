@@ -1,0 +1,2 @@
+import {Tabs,TabsList,TabsTrigger} from '@/components/ui/tabs';
+export default function CaseToolbar({mode,onMode}:{mode:string,onMode:(v:string)=>void}){return <div className="case-toolbar"><Tabs value={mode} onValueChange={onMode}><TabsList aria-label="Representation">{['geometry','structure','response'].map(v=><TabsTrigger value={v} key={v}>{v.toUpperCase()}</TabsTrigger>)}</TabsList></Tabs><span className="toolbar-note">Single-image structural interpretation</span></div>}

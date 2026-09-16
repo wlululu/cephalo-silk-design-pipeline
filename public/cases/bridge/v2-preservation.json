@@ -1,0 +1,42 @@
+{
+  "base": "User-saved cephalo-bridge-project_v2.zip, 442 nodes / 1711 members",
+  "tests": [
+    {
+      "name": "All V2 global dimensions retained",
+      "status": "passed"
+    },
+    {
+      "name": "All 126 V2 arch station coordinates retained",
+      "status": "passed"
+    },
+    {
+      "name": "Deck and approach nodes retained",
+      "status": "passed"
+    },
+    {
+      "name": "Four V2 root fan grids retained",
+      "status": "passed"
+    },
+    {
+      "name": "V2 longitudinal/transverse deck frames and roots retain connectivity and sections",
+      "status": "passed"
+    },
+    {
+      "name": "Under-deck tie connectivity retained while changing to cable behavior",
+      "status": "passed"
+    },
+    {
+      "name": "Support conditions and loading retained",
+      "status": "passed"
+    },
+    {
+      "name": "Local web hubs and original panel anchors retained; no global motif added",
+      "status": "passed"
+    },
+    {
+      "name": "Added arch points lie on V2 analytic curves; thick graded chords use those paths",
+      "status": "passed"
+    }
+  ],
+  "scope": "Preservation of V2 is checked numerically. Single-image reconstruction fidelity is not quantified."
+}

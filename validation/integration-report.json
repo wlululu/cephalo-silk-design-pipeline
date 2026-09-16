@@ -1,0 +1,222 @@
+{
+  "scope": "Integration preservation, not new mechanics validation",
+  "generated_at": "2026-09-10T01:19:33.278Z",
+  "cases": [
+    {
+      "case": "bridge",
+      "baseline": {
+        "nodes": 762,
+        "members": 3155,
+        "max_displacement_mm": 76.8779380859019,
+        "max_deck_displacement_mm": 36.74593686122058,
+        "relative_residual": 4.52837511751583e-13
+      },
+      "baseline_full_result": "exact match",
+      "variant_parameters": {
+        "loadCase": "uniform",
+        "pressure": 2.5,
+        "pointLoad": 500,
+        "E": 200,
+        "primaryScale": 1,
+        "secondaryScale": 1,
+        "selectedNode": 13,
+        "nodeLoad": 0,
+        "cablePrestress": 80
+      },
+      "variant_full_result": "exact match",
+      "preserved": [
+        {
+          "file": "cases/bridge/model.mjs",
+          "sha256": "0d5e1406d6cabaf031105d5ec42ecb46b48f136fb0ea91f8f588b1cf524574a9",
+          "identical": true
+        },
+        {
+          "file": "cases/bridge/geometry.mjs",
+          "sha256": "2c76cf852b1a9f687fa0b02d18cbaa0893e6378c342f33a809ea4244f6b518d3",
+          "identical": true
+        },
+        {
+          "file": "public/cases/bridge/solver.mjs",
+          "sha256": "2da01b8bfd510b1b0a972a4f89a3a0d9569930bfdd6fd90d993ee04659a0cce0",
+          "identical": true
+        },
+        {
+          "file": "public/cases/bridge/hybrid.mjs",
+          "sha256": "1c7132f610edfb49a985a6011ccffcf3723bab353e9e6298f0e02c3ee734f4b1",
+          "identical": true
+        },
+        {
+          "file": "public/cases/bridge/frame-element.mjs",
+          "sha256": "f18b410cc715ee3570e192b2c592492ecfc32cab2345fc5ba771af6959e51cc4",
+          "identical": true
+        },
+        {
+          "file": "public/cases/bridge/worker.mjs",
+          "sha256": "f22221a2ce4a5f82412e356de98e0975fab4660a1282e54d73dda74560d2ecc0",
+          "identical": true
+        },
+        {
+          "file": "public/cases/bridge/model.json",
+          "sha256": "c78af1ec0f341c2ddb7b06fbfed8219272eaed7543ede6651c2bd36c363d91b2",
+          "identical": true
+        },
+        {
+          "file": "public/cases/bridge/baseline-results.json",
+          "sha256": "97ae837d4b84ba1916f20de35f81967d3ffb81c8e313815a7cea8696b9478935",
+          "identical": true
+        },
+        {
+          "file": "public/cases/bridge/cephalo-bridge.glb",
+          "sha256": "0832fa9da7d790daf99a4625a64acc86247814d8ee971f46c21e8caaff72ad66",
+          "identical": true
+        },
+        {
+          "file": "public/cases/bridge/cephalo-bridge.stl",
+          "sha256": "16d96af84b84c5fba714951416856f975c6f4f222f7227a45b27a3b3a9e2182b",
+          "identical": true
+        },
+        {
+          "file": "public/cases/bridge/ASSUMPTIONS.md",
+          "sha256": "7d355cc9eef012aeb725306c47a1944d7d6e55c4f9681b374c8a64fb9feffdb6",
+          "identical": true
+        },
+        {
+          "file": "public/cases/bridge/validation.json",
+          "sha256": "156c2615581d5f72ee3ed08592f50de35d1ea3009ae523db2193e187945b3cd8",
+          "identical": true
+        },
+        {
+          "file": "public/cases/bridge/hybrid-validation.json",
+          "sha256": "8f46120298bdf83ee751a837fb90cc78c0c558dfecf0b8e9e1520120e40f9b3b",
+          "identical": true
+        },
+        {
+          "file": "public/cases/bridge/control-validation.json",
+          "sha256": "6c51ea1197429f3127819443943638f00ba57399da6809f1cd3375d55ce40c1e",
+          "identical": true
+        },
+        {
+          "file": "public/cases/bridge/export-validation.json",
+          "sha256": "83a8343273a4ed52ca9af315a9de92bdf89aeef0e5180bfaf97ab3aa2d6bf266",
+          "identical": true
+        },
+        {
+          "file": "public/cases/bridge/v2-preservation.json",
+          "sha256": "c338cb36cb353c0d3b0b88f5bea781279e981abb2ac96a873f8ebcd9f71ac1b8",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "case": "loop-towers",
+      "baseline": {
+        "nodes": 460,
+        "members": 2208,
+        "max_displacement_mm": 23.095865369389422,
+        "relative_residual": 8.311376212620624e-9
+      },
+      "baseline_full_result": "exact match",
+      "variant_parameters": {
+        "stiffness": 1,
+        "thickness": 1,
+        "load": 1.2,
+        "case": "wind"
+      },
+      "variant_full_result": "exact match",
+      "preserved": [
+        {
+          "file": "public/cases/loop-towers/model.js",
+          "sha256": "5365fac358d26fccc6e4ff548f6567cd7646265f402f56e54481296e95202002",
+          "identical": true
+        },
+        {
+          "file": "public/cases/loop-towers/solver.js",
+          "sha256": "6230ed9262d7e1d6e40ea73ae770026a713b6b4d8b6a8725068f36610827f26a",
+          "identical": true
+        },
+        {
+          "file": "public/cases/loop-towers/model.json",
+          "sha256": "4b331ef38338cccaafe0ea6070558b48b11e7e366ddde0e5482b9d71dce57c6e",
+          "identical": true
+        },
+        {
+          "file": "public/cases/loop-towers/worker.js",
+          "sha256": "433453f659e7635d3ae16479242270b61dc8cfe8420a6dc7df7eac0f66ee4ab8",
+          "identical": true
+        },
+        {
+          "file": "public/cases/loop-towers/README.md",
+          "sha256": "9b0a7f4af31eb38710897e6ba61b24b2cb6c22cec5a4fc0a0e315e05092a8112",
+          "identical": true
+        },
+        {
+          "file": "public/cases/loop-towers/vendor/three.module.js",
+          "sha256": "ce1fa418de16a19495a9f72495580e3015d7745c296d3ce0485897f902ddedfb",
+          "identical": true
+        },
+        {
+          "file": "public/cases/loop-towers/vendor/OrbitControls.js",
+          "sha256": "80efaadea4f8a636a65fb0bd08bfef62f3d93a0bb94e2e7500f23176c5c07f4e",
+          "identical": true
+        }
+      ]
+    },
+    {
+      "case": "pavilion",
+      "baseline": {
+        "nodes": 197,
+        "members": 648,
+        "max_displacement_mm": 139.4686375173227,
+        "relative_residual": 8.333677045218403e-8
+      },
+      "baseline_full_result": "exact match",
+      "variant_parameters": {
+        "loadCase": "Uplift",
+        "pressure": 450
+      },
+      "variant_full_result": "exact match",
+      "preserved": [
+        {
+          "file": "public/cases/pavilion/model.js",
+          "sha256": "dbea00c4cded4e994e163ab4adc520964608baaab00b4ae7ce36641572847b74",
+          "identical": true
+        },
+        {
+          "file": "public/cases/pavilion/solver.js",
+          "sha256": "791ce034c21e3b9d651384c0caaa6309eb92a5750f28fbd0f79fe40808319dee",
+          "identical": true
+        },
+        {
+          "file": "public/cases/pavilion/model.json",
+          "sha256": "e73cbd291a33b05df430f4b3a431f9e235c72242efd7c9d817be2cd476447a9a",
+          "identical": true
+        },
+        {
+          "file": "public/cases/pavilion/baseline-results.json",
+          "sha256": "55a7f80c272af3c1e5f8138c5c03382324abeaa856ee06c7f32ce047e327c381",
+          "identical": true
+        },
+        {
+          "file": "public/cases/pavilion/README.md",
+          "sha256": "78d23f6d47d9bd599e3760261beb3e966cc47003d304988bb28286fe86eca252",
+          "identical": true
+        },
+        {
+          "file": "public/cases/pavilion/vendor/three.module.js",
+          "sha256": "c8211c69345d2e9949dc7a8ac969380497aa0600a5a8ac6a459c8cd02dd9cb8a",
+          "identical": true
+        },
+        {
+          "file": "public/cases/pavilion/vendor/three.core.js",
+          "sha256": "eb077d2417f61d3e6d9264c317cabc4ea35769ed6b0ab533067292a550784c20",
+          "identical": true
+        },
+        {
+          "file": "public/cases/pavilion/vendor/OrbitControls.js",
+          "sha256": "b97879c748170baadeb3fb84cea1ffdf4674e283dc06042f34e2acb95a76042c",
+          "identical": true
+        }
+      ]
+    }
+  ]
+}

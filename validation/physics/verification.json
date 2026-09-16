@@ -1,0 +1,12 @@
+{
+  "artifact_qa_passed": true,
+  "checks": [
+    "189 protected source/baseline/export files retain their SHA-256 hashes",
+    "All three complete baselines exactly match original model/result records and authoritative model.json files",
+    "All 23 records have complete model/results, independently matching displacement maxima and support sums, and accepted original convergence diagnostics",
+    "Bridge runs have uncached five-stage histories; tower active states and independently reassembled residuals agree; linear vector-scaling claims verified",
+    "Every perturbation sweep is strictly monotonic in the expected direction; pavilion moment/slack and bridge yield concerns remain explicitly recorded",
+    "CSV (59 rows), JSON and Markdown are consistent; all 23 run IDs present and table columns well formed"
+  ],
+  "note": "Successful artifact QA does not change the recorded failed moment/yield checks or partial applicability findings."
+}

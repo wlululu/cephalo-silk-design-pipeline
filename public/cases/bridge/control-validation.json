@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Cable-only web hub point load",
+    "status": "passed",
+    "relativeResidual": 3.572593916371833e-9,
+    "absoluteResidual_N": 0.0003585573992128329,
+    "deckDisplacement_mm": 32.58492348527011,
+    "cables": {
+      "total": 554,
+      "taut": 355,
+      "slack": 199
+    }
+  },
+  {
+    "name": "Low reference prestress",
+    "status": "passed",
+    "relativeResidual": 3.3889529172504637e-13,
+    "absoluteResidual_N": 0.0000010936192314442266,
+    "deckDisplacement_mm": 46.5262744164419,
+    "cables": {
+      "total": 554,
+      "taut": 514,
+      "slack": 40
+    }
+  },
+  {
+    "name": "High reference prestress",
+    "status": "passed",
+    "relativeResidual": 5.2835232420344106e-12,
+    "absoluteResidual_N": 0.000017063948697699764,
+    "deckDisplacement_mm": 25.33662683712571,
+    "cables": {
+      "total": 554,
+      "taut": 546,
+      "slack": 8
+    }
+  }
+]

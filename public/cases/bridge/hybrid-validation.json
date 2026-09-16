@@ -1,0 +1,25 @@
+{
+  "tests": [
+    {
+      "name": "Two-cable transverse load matches exact nonlinear force equilibrium",
+      "status": "passed"
+    },
+    {
+      "name": "Cable compression is released with exactly zero force, energy and tangent",
+      "status": "passed"
+    },
+    {
+      "name": "Corotational cable tangent matches finite differences of internal force",
+      "status": "passed"
+    },
+    {
+      "name": "Five structural systems and actual tension-only web are explicitly classified",
+      "status": "passed"
+    },
+    {
+      "name": "Arch diaphragms occupy the retained three-chord envelope at every 2 m station",
+      "status": "passed"
+    }
+  ],
+  "scope": "Cable constitutive law, nonlinear benchmark, classifications and arch topology. Not an engineering design certification."
+}
