@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "timestamp": "2026-09-23T19:31:41.926883+00:00",
+  "source_commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
+  "local_execution_head": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
+  "source_repository": "https://github.com/wlululu/cephalo-silk-structural-lab",
+  "destination_repository": "https://github.com/wlululu/cephalo-silk-design-pipeline",
+  "baseline_pushed": false,
+  "local_baseline_tag": "structural-lab-baseline",
+  "remote_baseline_reference_created": false,
+  "development_committed": false,
+  "final_pipeline_commit": null,
+  "pushed": false,
+  "github_files_verified": false,
+  "errors": [
+    "git push origin main refs/tags/structural-lab-baseline: could not read Username for https://github.com",
+    "GitHub connector create_branch: HTTP 403 Resource not accessible by integration"
+  ],
+  "source_remote_push_disabled": true,
+  "next_step": "Enable authorized GitHub write access, push exact untouched baseline and tag, then commit tested changes and push only origin.",
+  "verification": {
+    "npm_ci": "pass",
+    "closed_loop_execution": "pass",
+    "test_closed_loop": "pass",
+    "npm_run_build": "pass",
+    "npm_test": "pass",
+    "schema_validation": "pass",
+    "original_files_byte_identical": 211,
+    "original_science_manifest_files": 102
+  }
+}

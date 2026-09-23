@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "design_id": "bridge_baseline",
+  "parent_design_id": null,
+  "source_case": "bridge",
+  "source_model": {
+    "path": "public/cases/bridge/model.json",
+    "commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340"
+  },
+  "mechanics_backend": {
+    "id": "original-bridge-hybrid",
+    "generator": "cases/bridge/model.mjs",
+    "solver": "public/cases/bridge/solver.mjs"
+  },
+  "input": {
+    "kind": "research_prompt_with_existing_model",
+    "prompt": "Reduce maximum deck displacement relative to baseline by changing only primary structural section scale.",
+    "image_reference": "public/cases/bridge/original-concept.png",
+    "image_to_geometry_performed": false
+  },
+  "objective": {
+    "description": "Reduce maximum deck displacement relative to baseline",
+    "metric": "maxDeckDisplacement",
+    "relation": "iteration < baseline"
+  },
+  "constraints": {
+    "mutable_parameters": [
+      "primaryScale"
+    ],
+    "invariants": [
+      "nodes",
+      "topology",
+      "supports",
+      "loads",
+      "materials",
+      "secondaryScale",
+      "cablePrestress",
+      "cable rest lengths",
+      "solver equations and tolerances"
+    ]
+  },
+  "baseline_parameters": {
+    "loadCase": "uniform",
+    "pressure": 5,
+    "pointLoad": 500,
+    "E": 200,
+    "primaryScale": 1,
+    "secondaryScale": 1,
+    "selectedNode": 13,
+    "nodeLoad": 0,
+    "cablePrestress": 80
+  },
+  "parameter_overrides": {},
+  "provenance": {
+    "created_at": "2026-09-23T19:24:51.071046+00:00",
+    "source_repository": "https://github.com/wlululu/cephalo-silk-structural-lab",
+    "repository": "https://github.com/wlululu/cephalo-silk-design-pipeline",
+    "source_commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
+    "parameter_definition": "cases/bridge/model.mjs: defaults and createModel; pressure kPa, E GPa, prestress MPa, pointLoad/nodeLoad kN; section scales dimensionless",
+    "policy_version": "1.0.0",
+    "supported_primary_scale": {
+      "ui_min": 0.5,
+      "ui_max": 1.5,
+      "ui_step": 0.05,
+      "selected_revised_value": 1.25,
+      "selection_evidence": "validation/physics/protocol.json: bridge-section-primary-1.25; cases/bridge/BridgeCase.tsx",
+      "selection_reason": "Single preselected 25% increase already exercised by the archived study; no candidate search or tuning."
+    }
+  }
+}

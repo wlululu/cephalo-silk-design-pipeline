@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/wlululu/cephalo-silk-design-pipeline/pipeline/designspec.schema.json",
+  "title": "Cephalo-Silk DesignSpec",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "design_id",
+    "parent_design_id",
+    "source_case",
+    "source_model",
+    "mechanics_backend",
+    "input",
+    "objective",
+    "constraints",
+    "baseline_parameters",
+    "parameter_overrides",
+    "provenance"
+  ],
+  "properties": {
+    "design_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_case": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "parent_design_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_model": {
+      "type": "object",
+      "required": [
+        "path",
+        "commit"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      }
+    },
+    "mechanics_backend": {
+      "type": "object",
+      "required": [
+        "id",
+        "generator",
+        "solver"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "generator": {
+          "type": "string"
+        },
+        "solver": {
+          "type": "string"
+        }
+      }
+    },
+    "input": {
+      "type": "object"
+    },
+    "objective": {
+      "type": "object",
+      "required": [
+        "description",
+        "metric",
+        "relation"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "metric": {
+          "type": "string"
+        },
+        "relation": {
+          "type": "string"
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "required": [
+        "mutable_parameters",
+        "invariants"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "mutable_parameters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "invariants": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "baseline_parameters": {
+      "type": "object"
+    },
+    "parameter_overrides": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "string",
+          "boolean"
+        ]
+      }
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "revision": {
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.0.0",
+  "design_id": "design_iteration_01",
+  "parent_design_id": "bridge_baseline",
+  "source_case": "bridge",
+  "source_model": {
+    "path": "public/cases/bridge/model.json",
+    "commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340"
+  },
+  "mechanics_backend": {
+    "id": "original-bridge-hybrid",
+    "generator": "cases/bridge/model.mjs",
+    "solver": "public/cases/bridge/solver.mjs"
+  },
+  "input": {
+    "kind": "research_prompt_with_existing_model",
+    "prompt": "Reduce maximum deck displacement relative to baseline by changing only primary structural section scale.",
+    "image_reference": "public/cases/bridge/original-concept.png",
+    "image_to_geometry_performed": false
+  },
+  "objective": {
+    "description": "Reduce maximum deck displacement relative to baseline",
+    "metric": "maxDeckDisplacement",
+    "relation": "iteration < baseline"
+  },
+  "constraints": {
+    "mutable_parameters": [
+      "primaryScale"
+    ],
+    "invariants": [
+      "nodes",
+      "topology",
+      "supports",
+      "loads",
+      "materials",
+      "secondaryScale",
+      "cablePrestress",
+      "cable rest lengths",
+      "solver equations and tolerances"
+    ]
+  },
+  "baseline_parameters": {
+    "loadCase": "uniform",
+    "pressure": 5,
+    "pointLoad": 500,
+    "E": 200,
+    "primaryScale": 1,
+    "secondaryScale": 1,
+    "selectedNode": 13,
+    "nodeLoad": 0,
+    "cablePrestress": 80
+  },
+  "parameter_overrides": {
+    "primaryScale": 1.25
+  },
+  "provenance": {
+    "created_at": "2026-09-23T19:24:51.071046+00:00",
+    "source_repository": "https://github.com/wlululu/cephalo-silk-structural-lab",
+    "repository": "https://github.com/wlululu/cephalo-silk-design-pipeline",
+    "source_commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
+    "parameter_definition": "cases/bridge/model.mjs: defaults and createModel; pressure kPa, E GPa, prestress MPa, pointLoad/nodeLoad kN; section scales dimensionless",
+    "policy_version": "1.0.0",
+    "supported_primary_scale": {
+      "ui_min": 0.5,
+      "ui_max": 1.5,
+      "ui_step": 0.05,
+      "selected_revised_value": 1.25,
+      "selection_evidence": "validation/physics/protocol.json: bridge-section-primary-1.25; cases/bridge/BridgeCase.tsx",
+      "selection_reason": "Single preselected 25% increase already exercised by the archived study; no candidate search or tuning."
+    },
+    "git_head_at_execution": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
+    "working_tree_status": "M README.md\n M package.json\n?? closed_loop_bridge/\n?? pipeline/\n?? scripts/run_closed_loop_bridge.mjs\n?? tests/closed-loop.mjs",
+    "original_repository": "https://github.com/wlululu/cephalo-silk-structural-lab",
+    "baseline_reference": "structural-lab-baseline",
+    "timestamp": "2026-09-23T20:24:53.616Z",
+    "execution_command": "node scripts/run_closed_loop_bridge.mjs --all",
+    "node": "v24.21.0",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "generator_version": "1.0.0",
+    "source_sha256": {
+      "public/cases/bridge/model.json": "c78af1ec0f341c2ddb7b06fbfed8219272eaed7543ede6651c2bd36c363d91b2",
+      "cases/bridge/model.mjs": "0d5e1406d6cabaf031105d5ec42ecb46b48f136fb0ea91f8f588b1cf524574a9",
+      "public/cases/bridge/solver.mjs": "2da01b8bfd510b1b0a972a4f89a3a0d9569930bfdd6fd90d993ee04659a0cce0",
+      "public/cases/bridge/hybrid.mjs": "1c7132f610edfb49a985a6011ccffcf3723bab353e9e6298f0e02c3ee734f4b1",
+      "public/cases/bridge/frame-element.mjs": "f18b410cc715ee3570e192b2c592492ecfc32cab2345fc5ba771af6959e51cc4"
+    },
+    "pipeline_sha256": {
+      "pipeline/bridge-backend.mjs": "45a8aec6d2214d8d305609f24e484b1e7b4931bd9f443ea0fbc06e8362647878",
+      "pipeline/diagnostics.mjs": "3dd8035b29b81ef8da44e98a4aa30b8b9efbff0970b222534290d65ddb11a260",
+      "pipeline/designspec.schema.json": "ea301c8cda0575ec9dbc9c7d9e81aa367f42bc6e53f36fd5922ad10625742733",
+      "scripts/run_closed_loop_bridge.mjs": "545760324de20920b3250336e7895c51ce32cf74312d82fb7a90976c77b5a74a"
+    }
+  },
+  "revision": {
+    "baseline_primary_scale": 1,
+    "revised_primary_scale": 1.25,
+    "ratio": 1.25,
+    "relative_change_percent": 25,
+    "rationale": "Increasing primary tube diameter and wall thickness increases area and bending/torsional section properties of arch chords, root spines and deck/floor framing. This may reduce deck displacement.",
+    "unchanged_parameters": {
+      "loadCase": "uniform",
+      "pressure": 5,
+      "pointLoad": 500,
+      "E": 200,
+      "secondaryScale": 1,
+      "selectedNode": 13,
+      "nodeLoad": 0,
+      "cablePrestress": 80
+    },
+    "feedback_sha256": "3c4be25bb98e9b1bc62754c965d9b8e21b5d1e7bd0fe0f43967253bd14985207"
+  }
+}

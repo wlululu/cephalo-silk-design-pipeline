@@ -1,0 +1,21 @@
+const norm=x=>Math.hypot(...x),add=(a,b)=>a.map((v,i)=>v+b[i]),sub=(a,b)=>a.map((v,i)=>v-b[i]),sum=vs=>vs.reduce(add,[0,0,0]);
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+function population(ms){
+ const values=ms.map(m=>m.axialForce),peak=ms.reduce((a,b)=>Math.abs(a.axialForce)>=Math.abs(b.axialForce)?a:b);
+ return {count:ms.length,min_axial_N:Math.min(...values),max_axial_N:Math.max(...values),max_abs_axial_N:Math.abs(peak.axialForce),max_abs_member:peak.member,mean_axial_N:values.reduce((a,b)=>a+b,0)/values.length,rms_axial_N:Math.sqrt(values.reduce((s,x)=>s+x*x,0)/values.length),sum_axial_N:values.reduce((a,b)=>a+b,0),note:'Signed population statistics; axial-force sums are not global resultants.'};
+}
+function screening(ms){return {max_yield_indicator:Math.max(...ms.map(m=>m.yieldIndicator)),above_yield_1:ms.filter(m=>m.yieldIndicator>1).map(m=>m.member),max_euler_indicator:Math.max(...ms.map(m=>m.eulerIndicator)),above_euler_1:ms.filter(m=>m.eulerIndicator>1).map(m=>m.member),max_combined_normal_stress_Pa:Math.max(...ms.map(m=>m.maxCombinedNormalStress))};}
+export function diagnostics(model,result,thresholds){
+ const frames=result.members.filter(m=>m.behavior==='bilateral_frame'),cables=result.members.filter(m=>m.behavior==='tension_only_cable');
+ const applied=sum(model.loads.map(l=>l.force)),reaction=sum(result.reactions.map(r=>r.force)),force=sub(reaction,applied.map(v=>-v));
+ const moment=ls=>sum(ls.map(l=>add(cross(model.nodes[l.node].position,l.force),l.moment??[0,0,0])));
+ const appliedMoment=moment(model.loads),reactionMoment=moment(result.reactions),momentError=add(appliedMoment,reactionMoment);
+ const forceScale=Math.max(1,model.loads.reduce((s,l)=>s+norm(l.force),0));
+ const momentScale=Math.max(1,model.loads.reduce((s,l)=>s+norm(cross(model.nodes[l.node].position,l.force))+norm(l.moment??[0,0,0]),0));
+ const noncentral=sum(model.members.filter(m=>m.behavior==='tension_only_cable').map(m=>{
+  const delta=sub(model.nodes[m.b].position,model.nodes[m.a].position),current=add(delta,sub(result.nodes[m.b].displacement,result.nodes[m.a].displacement));
+  return cross(delta,current.map(v=>v*result.members[m.id].axialForce/norm(current)));
+ }));
+ return {max_deck_displacement_mm:result.maxDeckDisplacement*1000,max_all_node_displacement_mm:result.maxDisplacement*1000,vertical_reaction_N:reaction[1],frame_forces:population(frames),cable_forces:population(cables),cables:{...result.cables,taut_ids:cables.filter(m=>m.status==='taut').map(m=>m.member),slack_ids:cables.filter(m=>m.status==='slack').map(m=>m.member)},screening:{frames:screening(frames),cables:screening(cables),interpretation:'Existing elastic indicators only; no engineering safety certification.'},solver:{converged:result.residualNorm_N<result.loadEquilibriumTolerance_N&&result.nonlinearHistory.at(-1).loadFactor===1,absolute_residual_N:result.residualNorm_N,relative_residual:result.relativeResidual,load_tolerance_N:result.loadEquilibriumTolerance_N,initial_tolerance_N:result.initialEquilibriumTolerance_N,iterations:result.nonlinearHistory.reduce((s,h)=>s+h.iterations,0),cable_mechanisms:result.cableMechanisms,inactive_cable_dofs:result.inactiveCableDofs,frame_min_scaled_pivot:result.frameMinScaledPivot},equilibrium:{origin:[0,0,0],configuration:'Authored reference coordinates, matching archived physics study; small-displacement frames with corotational cables.',applied_force_N:applied,reaction_force_N:reaction,force_error_vector_N:force,force_absolute_error_N:norm(force),force_relative_error:norm(force)/forceScale,force_threshold:thresholds.global_force_relative,force_pass:norm(force)/forceScale<=thresholds.global_force_relative,applied_moment_Nm:appliedMoment,reaction_moment_Nm:reactionMoment,moment_error_vector_Nm:momentError,moment_absolute_error_Nm:norm(momentError),moment_relative_error:norm(momentError)/momentScale,moment_threshold:thresholds.global_moment_relative,moment_pass:norm(momentError)/momentScale<=thresholds.global_moment_relative,reference_member_noncentral_torque_Nm:noncentral,moment_error_minus_member_torque_Nm:sub(momentError,noncentral)}};
+}
+export const change=(baseline,iteration)=>({baseline,iteration,absolute_change:iteration-baseline,percentage_change:baseline===0?null:100*(iteration-baseline)/baseline});

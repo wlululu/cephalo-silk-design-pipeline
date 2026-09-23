@@ -1,3 +1,25 @@
+# Cephalo-Silk Design Pipeline
+
+Additive research prototype initialized by an exact clone of [Cephalo-Silk Structural Lab](https://github.com/wlululu/cephalo-silk-structural-lab) at **`b6eeff872ccd62ddab8563cd2de6dcaf3a749340`**. Original structural models, mechanics solvers, numerical baselines and archived study records are preserved as the scientific starting point. The original source repository remains separately available and immutable for this work.
+
+The new design/configuration layer demonstrates one **physics-guided closed-loop design iteration**: DesignSpec → executable structural model → original physics solver → response → explicit feedback → revised DesignSpec → re-analysis → comparison. Bridge primary section scale is the only changed variable (1 → 1.25). No geometry reconstruction, Blender, UI redesign or optimization algorithm is added.
+
+```bash
+npm ci
+npm run closed-loop:bridge
+npm run test:closed-loop
+npm run build
+npm test
+```
+
+[Pipeline architecture](pipeline/README.md) · [Source inspection](pipeline/source-inspection.md) · [Bridge results and limitations](closed_loop_bridge/README.md)
+
+New code and records are additive; only this README and npm script entries in `package.json` modify existing files. Every other original tracked file is verified byte-identical to the source commit. Publication is currently blocked by GitHub write access; the local baseline tag exists, but the required baseline push and development commit/push have not been completed. See source inspection for exact access errors. Do not interpret the historical deployment notes below as a new publication claim.
+
+---
+
+## Preserved standalone application documentation
+
 # CEPHALO-SILK / STRUCTURAL LAB
 
 **IMAGE → GEOMETRY → RESPONSE**

@@ -13,7 +13,9 @@
     "test": "npm run test:preservation && npm run test:integration && npm run test:static",
     "test:preservation": "node tests/preservation.mjs",
     "test:integration": "node tests/integration.mjs",
-    "test:static": "node tests/static.mjs"
+    "test:static": "node tests/static.mjs",
+    "closed-loop:bridge": "node scripts/run_closed_loop_bridge.mjs",
+    "test:closed-loop": "node tests/closed-loop.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
