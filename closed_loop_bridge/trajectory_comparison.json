@@ -7,14 +7,15 @@
     "source_commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
     "pipeline_repository": "https://github.com/wlululu/cephalo-silk-design-pipeline",
     "pipeline_starting_commit": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
-    "execution_head": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
-    "working_tree_status": "M README.md\n M closed_loop_bridge/README.md\n M pipeline/README.md\n M pipeline/bridge-backend.mjs\n M pipeline/source-inspection.md\n M scripts/run_closed_loop_bridge.mjs\n M tests/closed-loop.mjs\n?? closed_loop_bridge/iteration_policy.json\n?? closed_loop_bridge/trajectory/\n?? closed_loop_bridge/trajectory_comparison.json\n?? closed_loop_bridge/trajectory_summary.md\n?? pipeline/bridge-trajectory.mjs\n?? pipeline/iteration-controller.mjs",
-    "timestamp": "2026-09-23T21:17:01.494Z",
+    "execution_head": "22fb33f4078dc56c920ee9296c442617749374b5",
+    "working_tree_status": "M README.md\n M closed_loop_bridge/iteration_policy.json\n M closed_loop_bridge/trajectory/baseline_verification.json\n M closed_loop_bridge/trajectory/design_iteration_02.json\n M closed_loop_bridge/trajectory/feedback_for_iteration_02.json\n M closed_loop_bridge/trajectory/iteration_01_verification.json\n M closed_loop_bridge/trajectory/iteration_02_response.json\n M closed_loop_bridge/trajectory/preservation_verification.json\n M closed_loop_bridge/trajectory_comparison.json\n M package.json\n M pipeline/README.md\n M pipeline/bridge-trajectory.mjs\n M pipeline/iteration-controller.mjs\n M scripts/run_closed_loop_bridge.mjs\n M tests/closed-loop.mjs\n?? pipeline/adapter-registry.mjs\n?? pipeline/bridge-adapters.mjs\n?? pipeline/objective-adapter.mjs\n?? tests/iteration-controller.mjs",
+    "timestamp": "2026-09-23T22:22:12.306Z",
     "execution_command": "npm run closed-loop:bridge",
     "node": "v24.21.0",
     "platform": "darwin",
     "architecture": "arm64",
-    "generator_version": "2.0.0",
+    "generator_version": "3.0.0",
+    "architecture_starting_commit": "22fb33f4078dc56c920ee9296c442617749374b5",
     "source_sha256": {
       "public/cases/bridge/model.json": "c78af1ec0f341c2ddb7b06fbfed8219272eaed7543ede6651c2bd36c363d91b2",
       "cases/bridge/model.mjs": "0d5e1406d6cabaf031105d5ec42ecb46b48f136fb0ea91f8f588b1cf524574a9",
@@ -24,56 +25,74 @@
     },
     "pipeline_sha256": {
       "pipeline/bridge-backend.mjs": "31fce0149672fac5749e6144b7cab0d895149009e0c1610883fd6337f91fc799",
-      "pipeline/bridge-trajectory.mjs": "26e94b4f2acf9552dd7985ec7e480a4a18956b56ab51f0cb71c2cfeaeb43aaed",
-      "pipeline/iteration-controller.mjs": "b2c5cd2711df3431939b03201d3adf769fd79a8fefe36ad8b63cafd4d36d0f12",
+      "pipeline/bridge-trajectory.mjs": "ba9d9f74d3e5f8e9404a9311d0b67aaede043304de7ae64458fd4a6a0faf37f3",
+      "pipeline/iteration-controller.mjs": "b70063f21de6aab9765eb81d01c8bcc49c72d1e43d5ca606203f236b0d915219",
+      "pipeline/objective-adapter.mjs": "3ede8b23314cc6ef8b4b8933d556cfd23b9281cbfb092eca5d92ce93360bc496",
+      "pipeline/adapter-registry.mjs": "7892c984d4caef9e02db92a2374a038bc27b054fe3fc6ed40e6c7e2ea18fb4ca",
+      "pipeline/bridge-adapters.mjs": "df6c41d856c402c3def054601677f0bcee0fad009545c64eab011229f0b34fb8",
       "pipeline/diagnostics.mjs": "3dd8035b29b81ef8da44e98a4aa30b8b9efbff0970b222534290d65ddb11a260",
       "pipeline/designspec.schema.json": "ea301c8cda0575ec9dbc9c7d9e81aa367f42bc6e53f36fd5922ad10625742733",
-      "scripts/run_closed_loop_bridge.mjs": "9e7827d1fcca02dd1e7f84b10d3234895f4289f024ef6c5dc5e6d5bcf71ea6c0",
-      "closed_loop_bridge/iteration_policy.json": "42836b6ae6e756e2f808b2271f48a45e2ae073b9cff79078f89768f16a9e2729"
+      "scripts/run_closed_loop_bridge.mjs": "21ba8a41b45355d70eea7f80be2ab0173b9f2654877aef7f2383a9e8b0e0c592",
+      "closed_loop_bridge/iteration_policy.json": "613f226149a0ecb1627b859fb6b59c46a6813d3c6e7a6235016534a17b0862db"
     }
   },
-  "completed_at": "2026-09-23T21:17:33.936Z",
+  "completed_at": "2026-09-23T22:22:45.240Z",
   "policy_path": "closed_loop_bridge/iteration_policy.json",
-  "policy_sha256": "42836b6ae6e756e2f808b2271f48a45e2ae073b9cff79078f89768f16a9e2729",
+  "policy_sha256": "613f226149a0ecb1627b859fb6b59c46a6813d3c6e7a6235016534a17b0862db",
   "policy": {
-    "schema_version": "2.0.0",
-    "controller": "deterministic rule-based closed-loop controller",
-    "objective_metric": "maxDeckDisplacement",
-    "reference_baseline": {
-      "design_id": "bridge_baseline",
-      "primaryScale": 1,
-      "response": "closed_loop_bridge/baseline_response.json"
+    "schema_version": "3.0.0",
+    "controller": {
+      "id": "deterministic-fixed-rule",
+      "label": "deterministic rule-based closed-loop controller",
+      "max_revisions": 3
     },
-    "target_reduction_percent": 20,
-    "target_interpretation": "Illustrative design target for demonstrating the pipeline; not a serviceability requirement, engineering design limit, safety criterion or claim of optimality.",
-    "controlled_variable": "primaryScale",
-    "step_size": 0.25,
-    "max_revision_steps": 3,
-    "supported_range": {
-      "min": 0.5,
-      "max": 1.5,
-      "ui_step": 0.05,
-      "evidence": "cases/bridge/BridgeCase.tsx: Primary section scale Range; cases/bridge/model.mjs: createModel section mapping",
-      "interpretation": "Conservatively retain the existing application control range. The generator accepts unbounded arithmetic inputs but does not establish support outside this range. 1.50 is supported; 1.75 is not."
+    "objective": {
+      "adapter_id": "bridge.maxDeckDisplacement",
+      "id": "maxDeckDisplacement",
+      "direction": "decrease",
+      "reference_baseline": {
+        "design_id": "bridge_baseline",
+        "primaryScale": 1,
+        "response": "closed_loop_bridge/baseline_response.json"
+      },
+      "target": {
+        "kind": "relative_improvement_percent",
+        "value": 20,
+        "interpretation": "Illustrative design target for demonstrating the pipeline; not a serviceability requirement, engineering design limit, safety criterion or claim of optimality."
+      }
     },
-    "hard_stop_conditions": [
-      "solver_nonconvergence",
-      "numerical_acceptance_failed",
-      "equilibrium_failed",
-      "no_improvement",
-      "unsupported_next_primary_scale",
-      "max_revision_steps_reached"
-    ],
-    "additional_provenance_gate": "version_1_reproduction_failed",
-    "decision_precedence": [
-      "failed provenance or solve/numerical/equilibrium acceptance",
-      "no improvement versus previous accepted state",
-      "illustrative target reached versus original baseline",
-      "revision count limit",
-      "next value outside supported range",
-      "continue with fixed increment"
-    ],
-    "acceptance_reference": "Unchanged solver-exported initial/load residual tolerances and validation/physics/protocol.json global force/moment relative thresholds. Existing screening indicators are reported, not treated as safety certification or added stop criteria.",
+    "design_variable": {
+      "adapter_id": "bridge.primaryScale",
+      "id": "primaryScale",
+      "baseline": 1,
+      "operation": "add",
+      "step": 0.25,
+      "supported_range": {
+        "min": 0.5,
+        "max": 1.5,
+        "ui_step": 0.05,
+        "evidence": "cases/bridge/BridgeCase.tsx: Primary section scale Range; cases/bridge/model.mjs: createModel section mapping",
+        "interpretation": "Conservatively retain the existing application control range. The generator accepts unbounded arithmetic inputs but does not establish support outside this range. 1.50 is supported; 1.75 is not."
+      }
+    },
+    "acceptance": {
+      "adapter_id": "bridge.original-acceptance",
+      "reference": "Unchanged solver-exported initial/load residual tolerances and validation/physics/protocol.json global force/moment relative thresholds. Existing screening indicators are reported, not treated as safety certification or added stop criteria."
+    },
+    "stopping": {
+      "decision_precedence": [
+        "reference_reproduction_failed",
+        "solver_nonconvergence",
+        "numerical_acceptance_failed",
+        "equilibrium_failed",
+        "no_improvement",
+        "target_reached",
+        "max_revision_steps_reached",
+        "unsupported_next_design_value",
+        "continue_fixed_increment"
+      ],
+      "interpretation": "Fixed controller precedence; order is documented here and enforced in code. Bridge reports retain their historical reason names."
+    },
     "search_used": false,
     "optimization_used": false,
     "llm_or_agent_decisions": false,
@@ -82,7 +101,8 @@
       "source_commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
       "pipeline_repository": "https://github.com/wlululu/cephalo-silk-design-pipeline",
       "pipeline_starting_commit": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
-      "definition": "User-specified fixed Version 2 policy; supported range inspected in unchanged Version 1 application."
+      "definition": "User-specified fixed Version 2 policy; supported range inspected in unchanged Version 1 application.",
+      "architecture_starting_commit": "22fb33f4078dc56c920ee9296c442617749374b5"
     }
   },
   "states": [
@@ -92,20 +112,21 @@
       "primaryScale": 1,
       "designspec_path": "closed_loop_bridge/baseline_designspec.json",
       "response_path": "closed_loop_bridge/trajectory/baseline_verification.json",
-      "response_sha256": "f1ab97221d43da4730c3bfe348caf2c2cdf04025349aa38e5bfd469751848b06",
+      "response_sha256": "b15a2ca3b3bb6a1cd2ea23249a05bb30ca075761b303828de490983ebab85c27",
       "provenance": {
         "source_repository": "https://github.com/wlululu/cephalo-silk-structural-lab",
         "source_commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
         "pipeline_repository": "https://github.com/wlululu/cephalo-silk-design-pipeline",
         "pipeline_starting_commit": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
-        "execution_head": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
-        "working_tree_status": "M README.md\n M closed_loop_bridge/README.md\n M pipeline/README.md\n M pipeline/bridge-backend.mjs\n M pipeline/source-inspection.md\n M scripts/run_closed_loop_bridge.mjs\n M tests/closed-loop.mjs\n?? closed_loop_bridge/iteration_policy.json\n?? pipeline/bridge-trajectory.mjs\n?? pipeline/iteration-controller.mjs",
-        "timestamp": "2026-09-23T21:17:01.554Z",
+        "execution_head": "22fb33f4078dc56c920ee9296c442617749374b5",
+        "working_tree_status": "M README.md\n M closed_loop_bridge/iteration_policy.json\n D closed_loop_bridge/trajectory/baseline_verification.json\n D closed_loop_bridge/trajectory/design_iteration_02.json\n D closed_loop_bridge/trajectory/feedback_for_iteration_02.json\n D closed_loop_bridge/trajectory/iteration_01_verification.json\n D closed_loop_bridge/trajectory/iteration_02_response.json\n D closed_loop_bridge/trajectory/preservation_verification.json\n D closed_loop_bridge/trajectory_comparison.json\n D closed_loop_bridge/trajectory_summary.md\n M package.json\n M pipeline/README.md\n M pipeline/bridge-trajectory.mjs\n M pipeline/iteration-controller.mjs\n M scripts/run_closed_loop_bridge.mjs\n M tests/closed-loop.mjs\n?? pipeline/adapter-registry.mjs\n?? pipeline/bridge-adapters.mjs\n?? pipeline/objective-adapter.mjs\n?? tests/iteration-controller.mjs",
+        "timestamp": "2026-09-23T22:22:12.370Z",
         "execution_command": "node scripts/run_closed_loop_bridge.mjs --worker 0",
         "node": "v24.21.0",
         "platform": "darwin",
         "architecture": "arm64",
-        "generator_version": "2.0.0",
+        "generator_version": "3.0.0",
+        "architecture_starting_commit": "22fb33f4078dc56c920ee9296c442617749374b5",
         "source_sha256": {
           "public/cases/bridge/model.json": "c78af1ec0f341c2ddb7b06fbfed8219272eaed7543ede6651c2bd36c363d91b2",
           "cases/bridge/model.mjs": "0d5e1406d6cabaf031105d5ec42ecb46b48f136fb0ea91f8f588b1cf524574a9",
@@ -115,12 +136,15 @@
         },
         "pipeline_sha256": {
           "pipeline/bridge-backend.mjs": "31fce0149672fac5749e6144b7cab0d895149009e0c1610883fd6337f91fc799",
-          "pipeline/bridge-trajectory.mjs": "26e94b4f2acf9552dd7985ec7e480a4a18956b56ab51f0cb71c2cfeaeb43aaed",
-          "pipeline/iteration-controller.mjs": "b2c5cd2711df3431939b03201d3adf769fd79a8fefe36ad8b63cafd4d36d0f12",
+          "pipeline/bridge-trajectory.mjs": "ba9d9f74d3e5f8e9404a9311d0b67aaede043304de7ae64458fd4a6a0faf37f3",
+          "pipeline/iteration-controller.mjs": "b70063f21de6aab9765eb81d01c8bcc49c72d1e43d5ca606203f236b0d915219",
+          "pipeline/objective-adapter.mjs": "3ede8b23314cc6ef8b4b8933d556cfd23b9281cbfb092eca5d92ce93360bc496",
+          "pipeline/adapter-registry.mjs": "7892c984d4caef9e02db92a2374a038bc27b054fe3fc6ed40e6c7e2ea18fb4ca",
+          "pipeline/bridge-adapters.mjs": "df6c41d856c402c3def054601677f0bcee0fad009545c64eab011229f0b34fb8",
           "pipeline/diagnostics.mjs": "3dd8035b29b81ef8da44e98a4aa30b8b9efbff0970b222534290d65ddb11a260",
           "pipeline/designspec.schema.json": "ea301c8cda0575ec9dbc9c7d9e81aa367f42bc6e53f36fd5922ad10625742733",
-          "scripts/run_closed_loop_bridge.mjs": "9e7827d1fcca02dd1e7f84b10d3234895f4289f024ef6c5dc5e6d5bcf71ea6c0",
-          "closed_loop_bridge/iteration_policy.json": "42836b6ae6e756e2f808b2271f48a45e2ae073b9cff79078f89768f16a9e2729"
+          "scripts/run_closed_loop_bridge.mjs": "21ba8a41b45355d70eea7f80be2ab0173b9f2654877aef7f2383a9e8b0e0c592",
+          "closed_loop_bridge/iteration_policy.json": "613f226149a0ecb1627b859fb6b59c46a6813d3c6e7a6235016534a17b0862db"
         }
       },
       "deck_m": 0.03674593686122058,
@@ -1914,20 +1938,21 @@
       "primaryScale": 1.25,
       "designspec_path": "closed_loop_bridge/design_iteration_01.json",
       "response_path": "closed_loop_bridge/trajectory/iteration_01_verification.json",
-      "response_sha256": "06f8bb469d6181fc99ccaab595a061f09a2d32366efeeb1c363d4792599fdc9c",
+      "response_sha256": "2972623415d59a9d0670b63ee797861371f90f61c4f2b8db8331413698a4b02b",
       "provenance": {
         "source_repository": "https://github.com/wlululu/cephalo-silk-structural-lab",
         "source_commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
         "pipeline_repository": "https://github.com/wlululu/cephalo-silk-design-pipeline",
         "pipeline_starting_commit": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
-        "execution_head": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
-        "working_tree_status": "M README.md\n M closed_loop_bridge/README.md\n M pipeline/README.md\n M pipeline/bridge-backend.mjs\n M pipeline/source-inspection.md\n M scripts/run_closed_loop_bridge.mjs\n M tests/closed-loop.mjs\n?? closed_loop_bridge/iteration_policy.json\n?? closed_loop_bridge/trajectory/\n?? pipeline/bridge-trajectory.mjs\n?? pipeline/iteration-controller.mjs",
-        "timestamp": "2026-09-23T21:17:14.470Z",
+        "execution_head": "22fb33f4078dc56c920ee9296c442617749374b5",
+        "working_tree_status": "M README.md\n M closed_loop_bridge/iteration_policy.json\n M closed_loop_bridge/trajectory/baseline_verification.json\n D closed_loop_bridge/trajectory/design_iteration_02.json\n D closed_loop_bridge/trajectory/feedback_for_iteration_02.json\n D closed_loop_bridge/trajectory/iteration_01_verification.json\n D closed_loop_bridge/trajectory/iteration_02_response.json\n D closed_loop_bridge/trajectory/preservation_verification.json\n D closed_loop_bridge/trajectory_comparison.json\n D closed_loop_bridge/trajectory_summary.md\n M package.json\n M pipeline/README.md\n M pipeline/bridge-trajectory.mjs\n M pipeline/iteration-controller.mjs\n M scripts/run_closed_loop_bridge.mjs\n M tests/closed-loop.mjs\n?? pipeline/adapter-registry.mjs\n?? pipeline/bridge-adapters.mjs\n?? pipeline/objective-adapter.mjs\n?? tests/iteration-controller.mjs",
+        "timestamp": "2026-09-23T22:22:25.669Z",
         "execution_command": "node scripts/run_closed_loop_bridge.mjs --worker 1",
         "node": "v24.21.0",
         "platform": "darwin",
         "architecture": "arm64",
-        "generator_version": "2.0.0",
+        "generator_version": "3.0.0",
+        "architecture_starting_commit": "22fb33f4078dc56c920ee9296c442617749374b5",
         "source_sha256": {
           "public/cases/bridge/model.json": "c78af1ec0f341c2ddb7b06fbfed8219272eaed7543ede6651c2bd36c363d91b2",
           "cases/bridge/model.mjs": "0d5e1406d6cabaf031105d5ec42ecb46b48f136fb0ea91f8f588b1cf524574a9",
@@ -1937,12 +1962,15 @@
         },
         "pipeline_sha256": {
           "pipeline/bridge-backend.mjs": "31fce0149672fac5749e6144b7cab0d895149009e0c1610883fd6337f91fc799",
-          "pipeline/bridge-trajectory.mjs": "26e94b4f2acf9552dd7985ec7e480a4a18956b56ab51f0cb71c2cfeaeb43aaed",
-          "pipeline/iteration-controller.mjs": "b2c5cd2711df3431939b03201d3adf769fd79a8fefe36ad8b63cafd4d36d0f12",
+          "pipeline/bridge-trajectory.mjs": "ba9d9f74d3e5f8e9404a9311d0b67aaede043304de7ae64458fd4a6a0faf37f3",
+          "pipeline/iteration-controller.mjs": "b70063f21de6aab9765eb81d01c8bcc49c72d1e43d5ca606203f236b0d915219",
+          "pipeline/objective-adapter.mjs": "3ede8b23314cc6ef8b4b8933d556cfd23b9281cbfb092eca5d92ce93360bc496",
+          "pipeline/adapter-registry.mjs": "7892c984d4caef9e02db92a2374a038bc27b054fe3fc6ed40e6c7e2ea18fb4ca",
+          "pipeline/bridge-adapters.mjs": "df6c41d856c402c3def054601677f0bcee0fad009545c64eab011229f0b34fb8",
           "pipeline/diagnostics.mjs": "3dd8035b29b81ef8da44e98a4aa30b8b9efbff0970b222534290d65ddb11a260",
           "pipeline/designspec.schema.json": "ea301c8cda0575ec9dbc9c7d9e81aa367f42bc6e53f36fd5922ad10625742733",
-          "scripts/run_closed_loop_bridge.mjs": "9e7827d1fcca02dd1e7f84b10d3234895f4289f024ef6c5dc5e6d5bcf71ea6c0",
-          "closed_loop_bridge/iteration_policy.json": "42836b6ae6e756e2f808b2271f48a45e2ae073b9cff79078f89768f16a9e2729"
+          "scripts/run_closed_loop_bridge.mjs": "21ba8a41b45355d70eea7f80be2ab0173b9f2654877aef7f2383a9e8b0e0c592",
+          "closed_loop_bridge/iteration_policy.json": "613f226149a0ecb1627b859fb6b59c46a6813d3c6e7a6235016534a17b0862db"
         }
       },
       "deck_m": 0.031081610662565564,
@@ -3725,20 +3753,21 @@
       "primaryScale": 1.5,
       "designspec_path": "closed_loop_bridge/trajectory/design_iteration_02.json",
       "response_path": "closed_loop_bridge/trajectory/iteration_02_response.json",
-      "response_sha256": "1f10e4897af8dae5ff540188e1e68c3e0a38bbba66734ae003d6f3c5ca07e524",
+      "response_sha256": "55441a5f2c7cb346d7ab81b34b1fa7353b1933494cec3f2242018f8f9a2d730d",
       "provenance": {
         "source_repository": "https://github.com/wlululu/cephalo-silk-structural-lab",
         "source_commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
         "pipeline_repository": "https://github.com/wlululu/cephalo-silk-design-pipeline",
         "pipeline_starting_commit": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
-        "execution_head": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
-        "working_tree_status": "M README.md\n M closed_loop_bridge/README.md\n M pipeline/README.md\n M pipeline/bridge-backend.mjs\n M pipeline/source-inspection.md\n M scripts/run_closed_loop_bridge.mjs\n M tests/closed-loop.mjs\n?? closed_loop_bridge/iteration_policy.json\n?? closed_loop_bridge/trajectory/\n?? pipeline/bridge-trajectory.mjs\n?? pipeline/iteration-controller.mjs",
-        "timestamp": "2026-09-23T21:17:27.125Z",
+        "execution_head": "22fb33f4078dc56c920ee9296c442617749374b5",
+        "working_tree_status": "M README.md\n M closed_loop_bridge/iteration_policy.json\n M closed_loop_bridge/trajectory/baseline_verification.json\n M closed_loop_bridge/trajectory/design_iteration_02.json\n M closed_loop_bridge/trajectory/feedback_for_iteration_02.json\n M closed_loop_bridge/trajectory/iteration_01_verification.json\n D closed_loop_bridge/trajectory/iteration_02_response.json\n D closed_loop_bridge/trajectory/preservation_verification.json\n D closed_loop_bridge/trajectory_comparison.json\n D closed_loop_bridge/trajectory_summary.md\n M package.json\n M pipeline/README.md\n M pipeline/bridge-trajectory.mjs\n M pipeline/iteration-controller.mjs\n M scripts/run_closed_loop_bridge.mjs\n M tests/closed-loop.mjs\n?? pipeline/adapter-registry.mjs\n?? pipeline/bridge-adapters.mjs\n?? pipeline/objective-adapter.mjs\n?? tests/iteration-controller.mjs",
+        "timestamp": "2026-09-23T22:22:38.508Z",
         "execution_command": "node scripts/run_closed_loop_bridge.mjs --worker 2",
         "node": "v24.21.0",
         "platform": "darwin",
         "architecture": "arm64",
-        "generator_version": "2.0.0",
+        "generator_version": "3.0.0",
+        "architecture_starting_commit": "22fb33f4078dc56c920ee9296c442617749374b5",
         "source_sha256": {
           "public/cases/bridge/model.json": "c78af1ec0f341c2ddb7b06fbfed8219272eaed7543ede6651c2bd36c363d91b2",
           "cases/bridge/model.mjs": "0d5e1406d6cabaf031105d5ec42ecb46b48f136fb0ea91f8f588b1cf524574a9",
@@ -3748,12 +3777,15 @@
         },
         "pipeline_sha256": {
           "pipeline/bridge-backend.mjs": "31fce0149672fac5749e6144b7cab0d895149009e0c1610883fd6337f91fc799",
-          "pipeline/bridge-trajectory.mjs": "26e94b4f2acf9552dd7985ec7e480a4a18956b56ab51f0cb71c2cfeaeb43aaed",
-          "pipeline/iteration-controller.mjs": "b2c5cd2711df3431939b03201d3adf769fd79a8fefe36ad8b63cafd4d36d0f12",
+          "pipeline/bridge-trajectory.mjs": "ba9d9f74d3e5f8e9404a9311d0b67aaede043304de7ae64458fd4a6a0faf37f3",
+          "pipeline/iteration-controller.mjs": "b70063f21de6aab9765eb81d01c8bcc49c72d1e43d5ca606203f236b0d915219",
+          "pipeline/objective-adapter.mjs": "3ede8b23314cc6ef8b4b8933d556cfd23b9281cbfb092eca5d92ce93360bc496",
+          "pipeline/adapter-registry.mjs": "7892c984d4caef9e02db92a2374a038bc27b054fe3fc6ed40e6c7e2ea18fb4ca",
+          "pipeline/bridge-adapters.mjs": "df6c41d856c402c3def054601677f0bcee0fad009545c64eab011229f0b34fb8",
           "pipeline/diagnostics.mjs": "3dd8035b29b81ef8da44e98a4aa30b8b9efbff0970b222534290d65ddb11a260",
           "pipeline/designspec.schema.json": "ea301c8cda0575ec9dbc9c7d9e81aa367f42bc6e53f36fd5922ad10625742733",
-          "scripts/run_closed_loop_bridge.mjs": "9e7827d1fcca02dd1e7f84b10d3234895f4289f024ef6c5dc5e6d5bcf71ea6c0",
-          "closed_loop_bridge/iteration_policy.json": "42836b6ae6e756e2f808b2271f48a45e2ae073b9cff79078f89768f16a9e2729"
+          "scripts/run_closed_loop_bridge.mjs": "21ba8a41b45355d70eea7f80be2ab0173b9f2654877aef7f2383a9e8b0e0c592",
+          "closed_loop_bridge/iteration_policy.json": "613f226149a0ecb1627b859fb6b59c46a6813d3c6e7a6235016534a17b0862db"
         }
       },
       "deck_m": 0.027919093139330543,
@@ -5522,14 +5554,15 @@
       "source_commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
       "pipeline_repository": "https://github.com/wlululu/cephalo-silk-design-pipeline",
       "pipeline_starting_commit": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
-      "execution_head": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
-      "working_tree_status": "M README.md\n M closed_loop_bridge/README.md\n M pipeline/README.md\n M pipeline/bridge-backend.mjs\n M pipeline/source-inspection.md\n M scripts/run_closed_loop_bridge.mjs\n M tests/closed-loop.mjs\n?? closed_loop_bridge/iteration_policy.json\n?? closed_loop_bridge/trajectory/\n?? pipeline/bridge-trajectory.mjs\n?? pipeline/iteration-controller.mjs",
-      "timestamp": "2026-09-23T21:17:27.063Z",
+      "execution_head": "22fb33f4078dc56c920ee9296c442617749374b5",
+      "working_tree_status": "M README.md\n M closed_loop_bridge/iteration_policy.json\n M closed_loop_bridge/trajectory/baseline_verification.json\n D closed_loop_bridge/trajectory/design_iteration_02.json\n M closed_loop_bridge/trajectory/feedback_for_iteration_02.json\n M closed_loop_bridge/trajectory/iteration_01_verification.json\n D closed_loop_bridge/trajectory/iteration_02_response.json\n D closed_loop_bridge/trajectory/preservation_verification.json\n D closed_loop_bridge/trajectory_comparison.json\n D closed_loop_bridge/trajectory_summary.md\n M package.json\n M pipeline/README.md\n M pipeline/bridge-trajectory.mjs\n M pipeline/iteration-controller.mjs\n M scripts/run_closed_loop_bridge.mjs\n M tests/closed-loop.mjs\n?? pipeline/adapter-registry.mjs\n?? pipeline/bridge-adapters.mjs\n?? pipeline/objective-adapter.mjs\n?? tests/iteration-controller.mjs",
+      "timestamp": "2026-09-23T22:22:38.447Z",
       "execution_command": "npm run closed-loop:bridge",
       "node": "v24.21.0",
       "platform": "darwin",
       "architecture": "arm64",
-      "generator_version": "2.0.0",
+      "generator_version": "3.0.0",
+      "architecture_starting_commit": "22fb33f4078dc56c920ee9296c442617749374b5",
       "source_sha256": {
         "public/cases/bridge/model.json": "c78af1ec0f341c2ddb7b06fbfed8219272eaed7543ede6651c2bd36c363d91b2",
         "cases/bridge/model.mjs": "0d5e1406d6cabaf031105d5ec42ecb46b48f136fb0ea91f8f588b1cf524574a9",
@@ -5539,12 +5572,15 @@
       },
       "pipeline_sha256": {
         "pipeline/bridge-backend.mjs": "31fce0149672fac5749e6144b7cab0d895149009e0c1610883fd6337f91fc799",
-        "pipeline/bridge-trajectory.mjs": "26e94b4f2acf9552dd7985ec7e480a4a18956b56ab51f0cb71c2cfeaeb43aaed",
-        "pipeline/iteration-controller.mjs": "b2c5cd2711df3431939b03201d3adf769fd79a8fefe36ad8b63cafd4d36d0f12",
+        "pipeline/bridge-trajectory.mjs": "ba9d9f74d3e5f8e9404a9311d0b67aaede043304de7ae64458fd4a6a0faf37f3",
+        "pipeline/iteration-controller.mjs": "b70063f21de6aab9765eb81d01c8bcc49c72d1e43d5ca606203f236b0d915219",
+        "pipeline/objective-adapter.mjs": "3ede8b23314cc6ef8b4b8933d556cfd23b9281cbfb092eca5d92ce93360bc496",
+        "pipeline/adapter-registry.mjs": "7892c984d4caef9e02db92a2374a038bc27b054fe3fc6ed40e6c7e2ea18fb4ca",
+        "pipeline/bridge-adapters.mjs": "df6c41d856c402c3def054601677f0bcee0fad009545c64eab011229f0b34fb8",
         "pipeline/diagnostics.mjs": "3dd8035b29b81ef8da44e98a4aa30b8b9efbff0970b222534290d65ddb11a260",
         "pipeline/designspec.schema.json": "ea301c8cda0575ec9dbc9c7d9e81aa367f42bc6e53f36fd5922ad10625742733",
-        "scripts/run_closed_loop_bridge.mjs": "9e7827d1fcca02dd1e7f84b10d3234895f4289f024ef6c5dc5e6d5bcf71ea6c0",
-        "closed_loop_bridge/iteration_policy.json": "42836b6ae6e756e2f808b2271f48a45e2ae073b9cff79078f89768f16a9e2729"
+        "scripts/run_closed_loop_bridge.mjs": "21ba8a41b45355d70eea7f80be2ab0173b9f2654877aef7f2383a9e8b0e0c592",
+        "closed_loop_bridge/iteration_policy.json": "613f226149a0ecb1627b859fb6b59c46a6813d3c6e7a6235016534a17b0862db"
       }
     },
     "revision": {
@@ -5554,9 +5590,9 @@
       "original_baseline_primaryScale": 1,
       "illustrative_target_reduction_percent": 20,
       "policy_reference": "closed_loop_bridge/iteration_policy.json",
-      "policy_sha256": "42836b6ae6e756e2f808b2271f48a45e2ae073b9cff79078f89768f16a9e2729",
+      "policy_sha256": "613f226149a0ecb1627b859fb6b59c46a6813d3c6e7a6235016534a17b0862db",
       "feedback_reference": "closed_loop_bridge/trajectory/feedback_for_iteration_02.json",
-      "feedback_sha256": "9a255ebfd441d417ddf674f385ec5cd4dcbb7694ec8e286367fc7b44cbb01f0d",
+      "feedback_sha256": "9559d436f703b51807279a2cd409a5dc2cd234bf893bd3ab2437ffa1ad8796b7",
       "unchanged_parameters": {
         "loadCase": "uniform",
         "pressure": 5,

@@ -5,7 +5,9 @@ import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {read,hash,validateSpec,checkModel,verifyPreservation} from '../pipeline/bridge-backend.mjs';
 import {START,root,policy,version1Preservation,validateTrajectorySpec,numericalAcceptance,sectionProperties} from '../pipeline/bridge-trajectory.mjs';
-import {runController,decide,reductionPercent,validatePolicy} from '../pipeline/iteration-controller.mjs';
+import {decide} from '../pipeline/iteration-controller.mjs';
+import {reductionPercent,validateBridgePolicy,bridgeDecision} from '../pipeline/bridge-adapters.mjs';
+import {resolveAdapters} from '../pipeline/adapter-registry.mjs';
 import {createModel} from '../cases/bridge/model.mjs';
 import {diagnostics} from '../pipeline/diagnostics.mjs';
 process.chdir(path.resolve(import.meta.dirname,'..'));
@@ -27,26 +29,23 @@ const before=read(`${root}/baseline_designspec.json`);
 for(const bad of [{pressure:6},{primaryScale:1.3},{primaryScale:1.5,secondaryScale:1.1},{cablePrestress:100},{E:210}])assert.throws(()=>validateTrajectorySpec({...before,design_id:'design_iteration_02',parent_design_id:'design_iteration_01',parameter_overrides:bad}));
 assert.throws(()=>validateTrajectorySpec({...before,design_id:'design_iteration_03',parent_design_id:'design_iteration_02',parameter_overrides:{primaryScale:1.75}}));
 assert.throws(()=>validateSpec({...before,source_model:{...before.source_model,commit:'0'.repeat(40)}}));
-for(const [key,value] of [['step_size',.1],['target_reduction_percent',15],['max_revision_steps',4],['search_used',true],['optimization_used',true]])assert.throws(()=>validatePolicy({...p,[key]:value}));
-assert.throws(()=>validatePolicy({...p,supported_range:{...p.supported_range,max:1.75}}));
+// Policy changes cannot silently alter the scientifically verified demonstration.
+for(const mutate of [
+ q=>q.design_variable.step=.1,q=>q.objective.target.value=15,q=>q.controller.max_revisions=4,
+ q=>q.search_used=true,q=>q.optimization_used=true,q=>q.llm_or_agent_decisions=true,
+ q=>q.design_variable.supported_range.max=1.75,q=>q.objective.direction='increase',
+ q=>q.design_variable.operation='eval',q=>q.acceptance.adapter_id='unknown'
+]){const q=structuredClone(p);mutate(q);assert.throws(()=>validateBridgePolicy(q));}
+const adapters=resolveAdapters(p,{baselineSpec:before,firstRevisionSpec:read(`${root}/design_iteration_01.json`)});
+for(const group of ['objective','design_variable','acceptance']){
+ const q=structuredClone(p);q[group].adapter_id='constructor';assert.throws(()=>resolveAdapters(q,{}),/Unsupported adapter/);
+ q[group].adapter_id='process.exit()';assert.throws(()=>resolveAdapters(q,{}),/Unsupported adapter/);
+}
+for(const value of [.5,1,1.25,1.5])assert.equal(adapters.designVariableAdapter.validate(value),true);
+for(const value of [.49,1.51,1.75,NaN,Infinity])assert.equal(adapters.designVariableAdapter.validate(value),false);
+assert.deepEqual(adapters.designVariableAdapter.propose(before),{value:1.25,supported:true});
+assert.throws(()=>adapters.designVariableAdapter.assertInvariants(before,{...before,input:{prompt:'changed'}}));
 assert.equal(reductionPercent(100,80),20);assert.equal(reductionPercent(100,75),25);
-// Solver-free synthetic unit tests exercise failure/stop branches; no additional structural designs are executed.
-const mock=(step,scale,deck)=>({revision_step:step,primaryScale:scale,deck_m:deck,diagnostics:{solver:{converged:true},equilibrium:{force_pass:true,moment_pass:true}},numerical_acceptance:true,provenance_verified:true});
-function simulation(values,mutate=()=>{}){
- const calls=[];const result=runController(p,({revision_step,primaryScale})=>{
-  calls.push(primaryScale);const state=mock(revision_step,primaryScale,values[revision_step]);mutate(state);return state;
- });return {calls,result};
-}
-let sim=simulation([100,80]);assert.deepEqual(sim.calls,[1,1.25]);assert.equal(sim.result.final_stopping_reason,'illustrative_target_reached');
-sim=simulation([100,85,79]);assert.deepEqual(sim.calls,[1,1.25,1.5]);assert.equal(sim.result.executed_revision_steps,2);assert.equal(sim.result.illustrative_target_met,true);
-sim=simulation([100,90,85]);assert.deepEqual(sim.calls,[1,1.25,1.5]);assert.equal(sim.result.final_stopping_reason,'unsupported_next_primary_scale');assert.equal(sim.result.states.at(-1).decision.unsupported_next_value,1.75);
-for(const failure of ['solver_nonconvergence','numerical_acceptance_failed','force','moment','version_1_reproduction_failed']){
- sim=simulation([100,70,60],s=>{if(s.revision_step!==1)return;if(failure==='solver_nonconvergence')s.diagnostics.solver.converged=false;else if(failure==='numerical_acceptance_failed')s.numerical_acceptance=false;else if(failure==='version_1_reproduction_failed')s.provenance_verified=false;else s.diagnostics.equilibrium[failure+'_pass']=false;});
- assert.deepEqual(sim.calls,[1,1.25]);assert.equal(sim.result.illustrative_target_met,false);assert.equal(sim.result.final_accepted_state.revision_step,0);assert.equal(sim.result.final_stopping_reason,['force','moment'].includes(failure)?'equilibrium_failed':failure);
-}
-for(const deck of [85,86]){sim=simulation([100,85,deck]);assert.equal(sim.result.final_stopping_reason,'no_improvement');assert.equal(sim.result.final_accepted_state.primaryScale,1.25);}
-// Range limits make step 3 unreachable here; directly test the independent revision-count guard.
-assert.equal(decide(mock(3,1.75,90),100,mock(2,1.5,95),p).reason,'max_revision_steps_reached');
 assert.equal(numericalAcceptance({...a.result,residualNorm_N:a.result.loadEquilibriumTolerance_N}),false);
 const badStage=structuredClone(a.result);badStage.nonlinearHistory[0].residualNorm=badStage.initialEquilibriumTolerance_N;assert.equal(numericalAcceptance(badStage),false);
 assert.equal(numericalAcceptance({...a.result,maxDeckDisplacement:NaN}),false);
@@ -69,7 +68,9 @@ for(const [step,s] of trajectory.states.entries()){
  assert.equal(s.absolute_deck_displacement_change_from_baseline_mm,s.max_deck_displacement_mm-a.result.maxDeckDisplacement*1000);
  assert.equal(s.percentage_deck_displacement_change_from_baseline,(-reductionPercent(a.result.maxDeckDisplacement,s.deck_m))||0);
  assert.deepEqual(s.section_properties,sectionProperties(s.primaryScale));
- assert.deepEqual(s.decision,decide(s,a.result.maxDeckDisplacement,previous,p));assert.deepEqual(record.evaluation,s.decision);
+ const normalized={revision_step:step,objective:adapters.objectiveAdapter.evaluate(record,a),validity:adapters.acceptance(record)};
+ const prior=previous?{objective:adapters.objectiveAdapter.evaluate(read(previous.response_path),a)}:null;
+ assert.deepEqual(s.decision,bridgeDecision(decide(normalized,prior,p.controller,()=>adapters.designVariableAdapter.propose(spec))));assert.deepEqual(record.evaluation,s.decision);
  if(step<trajectory.states.length-1)assert.equal(s.decision.stop,false,'Executed a state after a stop');else assert.equal(s.decision.stop,true);
  if(step<=1){assert.equal(record.v1_verification.full_result_exact_match,true);assert.deepEqual(record.result,step===0?a.result:b.result);assert.equal(hash(s.canonical_saved_response),s.canonical_saved_response_sha256);}
  else{const feedback=read(spec.revision.feedback_reference);assert.equal(hash(spec.revision.feedback_reference),spec.revision.feedback_sha256);assert.equal(feedback.previous_response_sha256,previous.response_sha256);assert.equal(feedback.proposed_primaryScale,previous.primaryScale+.25);assert.ok(Date.parse(feedback.provenance.timestamp)<=Date.parse(record.provenance.timestamp));}
@@ -85,5 +86,37 @@ assert.equal(trajectory.solver_invocations,trajectory.states.length);
 assert.equal(trajectory.verification_solves,2);
 for(const step of trajectory.unexecuted_revision_steps){assert.ok(!fs.existsSync(`${root}/trajectory/design_iteration_${String(step).padStart(2,'0')}.json`));assert.ok(!fs.existsSync(`${root}/trajectory/iteration_${String(step).padStart(2,'0')}_response.json`));}
 const corrupted=createModel(before.baseline_parameters);corrupted.nodes[0].position[0]+=1;assert.throws(()=>checkModel(corrupted,before.baseline_parameters));
-const report={pass:true,timestamp:new Date().toISOString(),checks:['Version 1 files byte-identical and historical hashes intact','fresh complete V1 solver results exact','fixed +0.25 rule and 20% baseline-relative target','one mutable parameter, forbidden inputs rejected','original range enforced; 1.75 rejected','all hard-stop branches with synthetic inputs only','no solver callback after success/failure stop','maximum revision guard','actual trajectory numerical arrays and diagnostics','response/feedback/source/code hashes','original scientific preservation']};
-fs.mkdirSync('test-output',{recursive:true});fs.writeFileSync('test-output/closed-loop-test.json',JSON.stringify(report,null,2)+'\n');console.log('PASS: fixed-rule controller, real trajectory, all stop conditions and scientific preservation.');
+// Immutable pre-refactor Git objects are the expected data, never regenerated fixtures.
+const refactorStart='22fb33f4078dc56c920ee9296c442617749374b5';
+const committedBytes=file=>execFileSync('git',['show',`${refactorStart}:${file}`],{maxBuffer:32*1024*1024});
+const committed=file=>JSON.parse(committedBytes(file));
+const original=committed(`${root}/trajectory_comparison.json`);
+for(const file of ['pipeline/designspec.schema.json',`${root}/baseline_designspec.json`,`${root}/design_iteration_01.json`,`${root}/baseline_response.json`,`${root}/iteration_01_response.json`])
+ assert.deepEqual(fs.readFileSync(file),committedBytes(file),`Changed historical input: ${file}`);
+assert.equal(trajectory.states.length,3);
+for(const [index,state] of trajectory.states.entries()){
+ const old=original.states[index],fresh=read(state.response_path),saved=committed(old.response_path);
+ validateTrajectorySpec(saved.designspec,p); // Historical DesignSpecs remain executable under the same schema.
+ // Full nodes, displacements, reactions, member forces/stresses, cable states and nonlinear history.
+ for(const key of ['result','diagnostics','parameters','primary_member_ids','section_properties','numerical_acceptance','execution_error','evaluation'])
+  assert.deepEqual(fresh[key],saved[key],`Response changed: ${state.design_id}/${key}`);
+ // Every state field except runtime provenance and response hashes must be exactly identical.
+ const scientific=({provenance,response_sha256,...rest})=>rest;
+ assert.deepEqual(scientific(state),scientific(old),`Trajectory changed: ${state.design_id}`);
+ // Generated spec metadata records current policy/code/feedback; engineering content is frozen.
+ const designContent=({provenance,revision,...rest})=>rest;
+ assert.deepEqual(designContent(fresh.designspec),designContent(saved.designspec));
+ if(index===2){
+  const revisionContent=({policy_sha256,feedback_sha256,...rest})=>rest;
+  assert.deepEqual(revisionContent(fresh.designspec.revision),revisionContent(saved.designspec.revision));
+ }
+}
+for(const key of ['final_stopping_reason','executed_revision_steps','illustrative_target_met','final_accepted_design_id','solver_invocations','verification_solves','new_revision_solves','marginal_deck_reductions','diminishing_returns_observed','unexecuted_revision_steps'])assert.deepEqual(trajectory[key],original[key],key);
+assert.deepEqual(trajectory.states.map(s=>s.max_deck_displacement_mm.toFixed(9)),['36.745936861','31.081610663','27.919093139']);
+assert.equal(trajectory.states.at(-1).decision.reduction_percent.toFixed(6),'24.021278');
+assert.equal(trajectory.final_stopping_reason,'illustrative_target_reached');
+assert.equal(trajectory.executed_revision_steps,2);assert.deepEqual(trajectory.unexecuted_revision_steps,[3]);
+assert.equal(trajectory.states[1].cable_state_changes_from_previous.length,4);
+assert.equal(trajectory.states[2].cable_state_changes_from_previous.length,0);
+const report={pass:true,timestamp:new Date().toISOString(),starting_commit:refactorStart,checks:['Version 1 files byte-identical and historical hashes intact','DesignSpec schema unchanged','unknown adapters and altered Bridge policy rejected','fixed +0.25 rule, 20% target, 0.50–1.50 range','one mutable parameter, forbidden inputs rejected','full baseline and both revision responses EXACT against starting commit','all trajectory science and public decisions EXACT','cable transitions, section tradeoffs, convergence/equilibrium EXACT','no Iteration 03 solve or artifact','response/feedback/source/code hashes','original scientific preservation']};
+fs.mkdirSync('test-output',{recursive:true});fs.writeFileSync('test-output/closed-loop-test.json',JSON.stringify(report,null,2)+'\n');console.log('PASS: adapters, exact pre-refactor Bridge trajectory and scientific preservation.');

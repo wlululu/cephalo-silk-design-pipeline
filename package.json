@@ -15,7 +15,7 @@
     "test:integration": "node tests/integration.mjs",
     "test:static": "node tests/static.mjs",
     "closed-loop:bridge": "node scripts/run_closed_loop_bridge.mjs",
-    "test:closed-loop": "node tests/closed-loop.mjs"
+    "test:closed-loop": "node --test tests/iteration-controller.mjs && node tests/closed-loop.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

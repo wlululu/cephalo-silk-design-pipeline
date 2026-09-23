@@ -10,7 +10,7 @@ Image / Prompt / Design Intent → DesignSpec → Executable Structural Model �
 
 **The current complete executable closed-loop demonstration is the Twin-Arch Web Bridge.** It uses the existing inferred structural model and original solver; the reproduction command does not generate geometry from a new image or prompt. Loop Towers and Woven-Wing Pavilion remain executable Structural Lab cases but are not connected to the closed-loop controller.
 
-The implemented controller is Bridge-specific: maximum deck displacement, `primaryScale`, a fixed `+0.25` update, and an illustrative target of at least 20% displacement reduction from baseline. These choices are enforced in code. Arbitrary objectives and parameters cannot be selected through configuration alone.
+The closed-loop controller uses explicit objective and design-variable adapters. The verified Bridge adapters implement maximum deck displacement, `primaryScale`, a fixed `+0.25` update, and an illustrative target of at least 20% displacement reduction from baseline. New objectives or controlled parameters require implementing, registering, and validating the corresponding adapters; configuration alone cannot enable them.
 
 ## Design Iteration
 
@@ -97,7 +97,7 @@ The following are future examples, not currently verified executable configurati
 | Limit cable force | Cable prestress |
 | Reduce material demand subject to a displacement constraint | Section dimensions |
 
-The present repository's verified controller implements the Bridge `maximum deck displacement / primaryScale` case. New objective/parameter combinations require implementation and validation of the corresponding metric and parameter adapter.
+The present repository's verified adapters implement the Bridge `maximum deck displacement / primaryScale` case. New objective/parameter combinations require implementation and validation of the corresponding metric and parameter adapter.
 
 An extension needs a response metric/extractor, a design-parameter adapter, an update rule, validity/acceptance logic, and tests for the intended mechanics backend. The general fields in `DesignSpec` describe the design; they do not make new objectives or controlled variables executable. The current validators also enforce the update size, target, revision limit, and supported range, so editing the policy JSON alone does not enable a different iteration strategy.
 
@@ -132,7 +132,7 @@ cephalo-silk-design-pipeline/
 
 ## Scope and Limitations
 
-The current executable controller is deterministic, rule-based, single-objective, single-design-variable, and Bridge-specific. It does not perform numerical optimization, topology optimization, autonomous engineering design, structural-code compliance, or safety certification. Results retain the idealized models' original mechanics assumptions and limitations.
+The generic controller is deterministic, rule-based, single-objective, and single-design-variable. The Bridge remains its only fully implemented and scientifically verified closed-loop example. It does not perform numerical optimization, topology optimization, autonomous engineering design, structural-code compliance, or safety certification. Results retain the idealized models' original mechanics assumptions and limitations.
 
 Future work may expand objectives, design variables, cases, feedback strategies, optimization, or agent reasoning. These are extension directions, not present capabilities.
 

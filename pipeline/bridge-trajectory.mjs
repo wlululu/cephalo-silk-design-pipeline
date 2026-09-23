@@ -1,21 +1,20 @@
-// Version 2 design/backend adapter. Original scientific implementation is imported unchanged.
+// Bridge execution, diagnostics and trajectory records. Original scientific implementation is imported unchanged.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {createHash} from 'node:crypto';
-import {SOURCE,paths,read,hash,git,validateSpec,execute} from './bridge-backend.mjs';
-import {defaults,createModel} from '../cases/bridge/model.mjs';
+import {SOURCE,paths,read,hash,git,execute} from './bridge-backend.mjs';
+import {defaults} from '../cases/bridge/model.mjs';
 import {diagnostics} from './diagnostics.mjs';
-import {validatePolicy,supported} from './iteration-controller.mjs';
+import {validateBridgePolicy,validateTrajectorySpec as validateAdapterSpec} from './bridge-adapters.mjs';
 export const START='f6c3b73059246a36e167e98f12ef1b393ed893ab';
 export const root='closed_loop_bridge',out=`${root}/trajectory`;
 export const policyPath=`${root}/iteration_policy.json`;
 export const frozenV1=['baseline_designspec','baseline_response','design_feedback','design_iteration_01','iteration_01_response','comparison','preservation_verification','publication-status'].map(n=>`${root}/${n}.json`);
 export function policy(){
- const p=validatePolicy(read(policyPath));
+ const p=validateBridgePolicy(read(policyPath));
  const ui=fs.readFileSync('cases/bridge/BridgeCase.tsx','utf8');
  const range=ui.match(/label="Primary section scale"[^\n]*?min=\{([.\d]+)\} max=\{([.\d]+)\} step=\{([.\d]+)\}/);
  assert.ok(range,'Original UI range not found');
- assert.deepEqual(range.slice(1).map(Number),[p.supported_range.min,p.supported_range.max,p.supported_range.ui_step]);
+ assert.deepEqual(range.slice(1).map(Number),[p.design_variable.supported_range.min,p.design_variable.supported_range.max,p.design_variable.supported_range.ui_step]);
  assert.equal(p.provenance.source_commit,SOURCE);assert.equal(p.provenance.pipeline_starting_commit,START);
  return p;
 }
@@ -25,20 +24,10 @@ export function version1Preservation(){
  return {pipeline_starting_commit:START,unchanged:true,files:entries};
 }
 export function provenance(command){
- const code=['pipeline/bridge-backend.mjs','pipeline/bridge-trajectory.mjs','pipeline/iteration-controller.mjs','pipeline/diagnostics.mjs','pipeline/designspec.schema.json','scripts/run_closed_loop_bridge.mjs',policyPath];
- return {source_repository:'https://github.com/wlululu/cephalo-silk-structural-lab',source_commit:SOURCE,pipeline_repository:'https://github.com/wlululu/cephalo-silk-design-pipeline',pipeline_starting_commit:START,execution_head:git('rev-parse','HEAD'),working_tree_status:git('status','--porcelain'),timestamp:new Date().toISOString(),execution_command:command,node:process.version,platform:process.platform,architecture:process.arch,generator_version:'2.0.0',source_sha256:Object.fromEntries(Object.values(paths).map(f=>[f,hash(f)])),pipeline_sha256:Object.fromEntries(code.map(f=>[f,hash(f)]))};
+ const code=['pipeline/bridge-backend.mjs','pipeline/bridge-trajectory.mjs','pipeline/iteration-controller.mjs','pipeline/objective-adapter.mjs','pipeline/adapter-registry.mjs','pipeline/bridge-adapters.mjs','pipeline/diagnostics.mjs','pipeline/designspec.schema.json','scripts/run_closed_loop_bridge.mjs',policyPath];
+ return {source_repository:'https://github.com/wlululu/cephalo-silk-structural-lab',source_commit:SOURCE,pipeline_repository:'https://github.com/wlululu/cephalo-silk-design-pipeline',pipeline_starting_commit:START,execution_head:git('rev-parse','HEAD'),working_tree_status:git('status','--porcelain'),timestamp:new Date().toISOString(),execution_command:command,node:process.version,platform:process.platform,architecture:process.arch,generator_version:'3.0.0',architecture_starting_commit:'22fb33f4078dc56c920ee9296c442617749374b5',source_sha256:Object.fromEntries(Object.values(paths).map(f=>[f,hash(f)])),pipeline_sha256:Object.fromEntries(code.map(f=>[f,hash(f)]))};
 }
-export function validateTrajectorySpec(spec,p=policy()){
- if(['bridge_baseline','design_iteration_01'].includes(spec.design_id))return validateSpec(spec);
- const step=Number(spec.design_id.match(/^design_iteration_(\d{2})$/)?.[1]);
- assert.ok(Number.isInteger(step)&&step>=2&&step<=p.max_revision_steps);
- const scale=defaults.primaryScale+step*p.step_size;assert.ok(supported(scale,p),'Unsupported primaryScale');
- assert.equal(spec.parent_design_id,`design_iteration_${String(step-1).padStart(2,'0')}`);
- // Reuse V1's strict source, mechanics, baseline, objective and immutable-parameter contract.
- validateSpec({...spec,design_id:'design_iteration_01',parent_design_id:'bridge_baseline',parameter_overrides:{primaryScale:1.25}});
- assert.deepEqual(spec.parameter_overrides,{primaryScale:scale});
- return {...defaults,...spec.parameter_overrides};
-}
+export function validateTrajectorySpec(spec,p=policy()){return validateAdapterSpec(spec,p);}
 function finiteTree(value){
  if(typeof value==='number')return Number.isFinite(value);
  if(value&&typeof value==='object')return Object.values(value).every(finiteTree);
