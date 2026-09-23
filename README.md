@@ -1,197 +1,149 @@
-# Cephalo-Silk Design Pipeline — Version 2
+# Cephalo-Silk Design Pipeline
 
-This working tree extends verified Version 1 commit **`f6c3b73059246a36e167e98f12ef1b393ed893ab`**, whose parent is the immutable [Structural Lab](https://github.com/wlululu/cephalo-silk-structural-lab) source **`b6eeff872ccd62ddab8563cd2de6dcaf3a749340`**. Original scientific assets and Version 1 baseline/Iteration 01 records remain unchanged. Version 2 changes are intentionally uncommitted; no push, tag creation or remote modification is performed.
+Cephalo-Silk Design Pipeline extends the [Cephalo-Silk Structural Lab](https://github.com/wlululu/cephalo-silk-structural-lab) from executable structural reconstructions toward a reusable physics-guided design workflow. It connects design representation to executable mechanics so that a design can be evaluated and iteratively revised against explicit requirements, with transparent, auditable design feedback.
 
-The **deterministic rule-based closed-loop controller** makes multi-step design refinement auditable: DesignSpec → executable structural model → unchanged physics solver → response → fixed parameter update rule → re-analysis → stopping decision. Only `primaryScale` changes, by exactly +0.25, with an illustrative target of ≥20% maximum deck-displacement reduction relative to the original baseline and at most three revisions. The existing supported range remains 0.50–1.50; 1.75 is not permitted.
+## Workflow
 
-The executed trajectory is **1.00 → 1.25 → 1.50**. It stops at Iteration 02 with **24.021278%** reduction and `illustrative_target_reached`. Iteration 03 was not executed. This is a physics-guided closed-loop design iteration procedure, not an optimization algorithm or engineering safety assessment. Existing Euler screening concerns remain.
+Image / Prompt / Design Intent → DesignSpec → Executable Structural Model → Physics Analysis → Design Feedback → Revised DesignSpec → Re-analysis → Stop / Continue
+
+`DesignSpec` records design intent, the referenced model and mechanics backend, the objective, permitted parameter changes, constraints, and provenance. The architecture is intended to support user-defined objectives, design variables, update rules, constraints, and mechanics backends for requirement-driven design refinement.
+
+**The current complete executable closed-loop demonstration is the Twin-Arch Web Bridge.** It uses the existing inferred structural model and original solver; the reproduction command does not generate geometry from a new image or prompt. Loop Towers and Woven-Wing Pavilion remain executable Structural Lab cases but are not connected to the closed-loop controller.
+
+The implemented controller is Bridge-specific: maximum deck displacement, `primaryScale`, a fixed `+0.25` update, and an illustrative target of at least 20% displacement reduction from baseline. These choices are enforced in code. Arbitrary objectives and parameters cannot be selected through configuration alone.
+
+## Design Iteration
+
+### Objective
+
+The objective expresses the user's engineering or design performance goal. The current example is **reduce maximum deck displacement**: the solver's maximum displacement magnitude over deck nodes, including prestress equilibration. Possible future objectives include stress, force, stiffness, material demand, cable response, or combinations of performance quantities; these are not implemented controller objectives.
+
+### Design parameter
+
+The controlled parameter is the quantity permitted to change. Here, `primaryScale` scales primary-member tube diameter and wall thickness together. Geometry coordinates, connectivity, supports, loads, materials, secondary sections, and cable definitions remain fixed during the loop.
+
+### Update rule
+
+```text
+primaryScale_next = primaryScale_current + 0.25
+```
+
+This is a deterministic fixed rule, not a search or optimizer. The baseline and first revision use saved DesignSpecs and are freshly checked against their saved responses before the controller advances.
+
+### Stopping rule
+
+- Stop when maximum deck displacement decreases by **at least 20% relative to the original baseline**.
+- Allow at most **3 revision steps** after baseline.
+- Stop early for solver failure/non-convergence, numerical or equilibrium failure, failed reproduction of saved reference responses, loss of improvement over the previous accepted state, or an unsupported next parameter value.
+
+The supported `primaryScale` range is **0.50–1.50**. Starting at 1.00 with fixed +0.25 steps permits two revisions; a third value of 1.75 is rejected even if the target has not been reached. The 20% target is illustrative, not a structural-code or safety requirement.
+
+## Bridge Example
+
+| Design state | primaryScale | Max deck displacement | Reduction from baseline |
+|---|---:|---:|---:|
+| Baseline | 1.00 | 36.746 mm | — |
+| Iteration 01 | 1.25 | 31.082 mm | 15.41% |
+| Iteration 02 | 1.50 | 27.919 mm | 24.02% |
+
+Iteration 01 did not meet the illustrative 20% target. The controller applied the same +0.25 rule, and Iteration 02 reached 24.02% reduction. The controller then stopped; no further iteration was executed. This is a target-reaching trajectory, not an optimum.
+
+The improvement increases section/material demand: at the final state, affected primary-section area is **125% greater** and `Iy`/`Iz`/`J` are **406.25% greater** than baseline. Whole-structure mass and added self-weight are not modeled in this design-refinement objective. Existing Euler screening indicators remain above 1; target attainment is not equivalent to engineering safety certification.
+
+## Reproduce the Bridge Workflow
+
+Use Git, Node.js **22.13 or later** (Node **24** recommended), and npm. Retain the clone's Git history: provenance checks read the original source and pipeline commits. Initial dependency installation requires access to the npm registry; the workflow requires no API key or external model service.
 
 ```bash
+git clone https://github.com/wlululu/cephalo-silk-design-pipeline.git
+cd cephalo-silk-design-pipeline
 npm ci
 npm run closed-loop:bridge
+```
+
+`npm run closed-loop:bridge` checks scientific-file preservation, solves and verifies the saved baseline and first revision, then applies the fixed rule until a stopping condition is met. It regenerates the trajectory records and summary while retaining the archived baseline and first-revision records. Execution timestamps and runtime provenance are refreshed on reruns.
+
+Run the checks and production build:
+
+```bash
 npm run test:closed-loop
 npm run build
 npm test
 ```
 
-[Architecture and controller](pipeline/README.md) · [Meeting-ready trajectory](closed_loop_bridge/trajectory_summary.md) · [Machine-readable trajectory](closed_loop_bridge/trajectory_comparison.json) · [Policy](closed_loop_bridge/iteration_policy.json) · [Original source inspection](pipeline/source-inspection.md)
+The closed-loop tests check controller decisions, saved responses, invariants, and provenance. The build produces the browser application in `dist/`; `npm test` checks scientific preservation, original-versus-current numerical results, and static serving. Exact numerical comparisons can expose platform-dependent floating-point differences; see the [reproducibility notes](pipeline/README.md#cross-platform-reproducibility).
 
-The unchanged old `closed_loop_bridge/publication-status.json` and historical documentation describe the earlier Version 1 handoff; they are retained as records, not current publication status. Version 1 is now present on GitHub at the starting commit above. Version 2 awaits manual review, commit and push. No new UI, Blender, model geometry, solver equations or dependencies are added.
+To explore the three Structural Lab cases interactively, run `npm run dev` and open the local URL printed by Vite. The closed-loop demonstration runs through the command above.
 
----
+## Outputs
 
-## Preserved standalone application documentation
-
-# CEPHALO-SILK / STRUCTURAL LAB
-
-**IMAGE → GEOMETRY → RESPONSE**
-
-A standalone browser research application containing three independent, existing structural cases:
-
-- **01 Twin-Arch Web Bridge** — hybrid frame and tension-only cable/web system.
-- **02 Loop Towers** — terraced towers, inclined crown, lower cradle and suspended web.
-- **03 Woven-Wing Pavilion** — perimeter arches, branching supports and equivalent woven field with the original initial-tension/tangent-response assumptions. Prestress is not form-found.
-
-**No ChatGPT account, OpenAI API key, ChatGPT hosting, private package registry, backend service, database, or Cloudflare account is required.** After installation and build, all rendering, analysis, model data and worker code run locally in the browser. No external runtime requests are needed.
-
-This conversion changes deployment plumbing only. Geometry, authoritative model snapshots, material/section definitions, boundary conditions, mechanics formulations, prestress, solver implementations, baseline results and the completed physics-validation study are preserved. The interface retains the existing Cephalo-Silk title, layout, controls, appearance and case routes.
-
-## Prerequisites
-
-- Node.js **22.13 or later**; Node **24** is recommended and was tested. `.nvmrc` selects 24.
-- npm, included with Node; npm 11.9.0 was tested. Use the committed `package-lock.json` for repeatable installs.
-- A modern browser supporting ES modules and module workers. WebGL provides the normal rendering path; the existing software renderer remains available when WebGL is unavailable.
-- Internet access to the public npm registry for initial dependency installation. **Python is not needed for installation, development, build or the standalone preservation tests.** Historical research scripts may separately require Python 3.
-
-## Installation and local development
-
-Clone your LAMM repository, or extract the release folder, then run in its root:
-
-```bash
-npm install
-npm run dev
-```
-
-Open **http://localhost:5173/** (the server prints the equivalent `http://127.0.0.1:5173/`). Keep the terminal open; Ctrl+C stops it. For a lockfile-only installation use `npm ci`. No environment file or credentials are required.
-
-Routes: `/#/bridge`, `/#/loop-towers`, `/#/pavilion`. Hash routing preserves the same navigation under a repository subpath and needs no server-side rewrites. Changing a control runs the existing analysis; the bridge's first nonlinear solve may take longer than the others.
-
-## Production build and local preview
-
-```bash
-npm run build
-npm run preview
-```
-
-Open **http://localhost:4173/**. The production output is **`dist/`**. It contains the app, local JavaScript/CSS, native case applications, solver workers, images, original research downloads, a copy of the preserved `validation/` directory, and `downloads/cephalo-structural-lab.zip` with the editable standalone source and records.
-
-The build never regenerates models, reruns physics validation, or overwrites baseline files. The source download excludes `dist/`, `node_modules/`, local test output and Git metadata to avoid recursion; rebuild it with the same standard commands after extracting. The delivered release ZIP additionally includes a ready-built `dist/`.
-
-Alternatively, run the prebuilt application using only Node (no npm install):
-
-```bash
-node scripts/serve-static.mjs
-```
-
-Open **http://localhost:8000/**. The optional existing Python server (`python3 scripts/serve-local.py`) serves the same folder. Use HTTP, not a double-clicked `file://` page: ES modules and analysis workers require an HTTP origin.
-
-## Deploy to a public LAMM GitHub repository / GitHub Pages
-
-GitHub Pages is supported for a repository site, an organization/user root site, and a custom domain. The single production build uses `base: './'`; app assets, concept images, iframe documents, source downloads and the bridge worker resolve beneath the current app directory. Native case imports and downloads remain document-relative. No repository-name substitution in source code is required.
-
-1. Create the intended **public repository under the LAMM organization** and commit this project at its root, including `package-lock.json`, `public/`, `validation/` and `.github/workflows/pages.yml`. Do not commit `node_modules/`, generated `dist/` or `test-output/`.
-2. Use a `main` branch, or change the workflow's branch filter to your chosen branch.
-3. In repository **Settings → Pages**, select **GitHub Actions** as the source. Ensure organization settings permit the included Actions and Pages deployment.
-4. Push to `main`, or run **Deploy standalone lab to GitHub Pages** manually in the Actions tab. It runs `npm ci`, `npm run build`, and `npm test`, then publishes only `dist/`.
-5. Open the URL reported by the deployment job. Case fragments remain `#/bridge`, `#/loop-towers`, and `#/pavilion` after that URL's trailing slash.
-
-The workflow uses the standard GitHub-provided token with `contents: read`, `pages: write` and `id-token: write`; no personal access token or OpenAI secret is needed. GitHub authentication is only for maintaining/deploying the repository; visitors to the public static app need no account. `.nojekyll` is included for hosts using branch-based Pages publication. The workflow and repository are prepared; no public LAMM repository was created or published as part of this conversion.
-
-Any conventional static host can serve the **contents of `dist/`** at `/` or a directory such as `/cephalo-structural-lab/`. Use a trailing slash on directory URLs, serve `.js` and `.mjs` as JavaScript, and allow same-origin workers and iframe documents. Do not route missing module URLs to an HTML fallback. No SPA rewrite rules, server functions, API routes or host-specific headers are needed.
-
-Deployment reference: [Vite static deployment documentation](https://vite.dev/guide/static-deploy).
-
-## Architecture
-
-| Location | Responsibility |
+| Location | Contents |
 |---|---|
-| `main.tsx` | Platform root, hash routing and case lifecycle |
-| `shared/Platform.tsx` | Header and case navigation |
-| `shared/CaseToolbar.tsx` | Bridge representation selector |
-| `shared/ConceptCard.tsx` | Bridge concept thumbnail and enlargement dialog |
-| `public/shared/lab.css` | Shared typography, viewport, experiment-panel, control, legend and metric styling |
-| `public/shared/integration.js` | Shared DOM adapter for the two existing plain-JavaScript applications; retains their control IDs and native event handlers |
-| `public/shared/renderer.js` | Optional software rendering of the existing Three scenes when WebGL is unavailable |
-| `cases/bridge/` | Bridge React view, model generator, geometry builder and original software renderer |
-| `public/cases/bridge/` | Bridge worker, solver, default model and preserved data/exports |
-| `public/cases/loop-towers/` | Independent native tower application, geometry/model generator, worker, solver and assets |
-| `public/cases/pavilion/` | Independent native pavilion application, geometry/model generator, solver and assets |
-| `validation/` | Full original baseline snapshots and integration-preservation report |
-| `public/downloads/` | Exact original source ZIPs and separately supplied model files |
-| `dist/downloads/cephalo-structural-lab.zip` | Standalone editable source archive, generated by the build (no recursive `dist/`) |
-| `tests/integration.mjs` | Original-versus-standalone full numerical checks; new output goes to `test-output/` |
-| `reproducibility/` | Preserved-file hashes and standalone verification evidence |
-| `scripts/serve-static.mjs` | Optional Node-only static HTTP server, also used to test subpath deployment |
-| `.github/workflows/pages.yml` | Build, preservation tests and GitHub Pages deployment |
+| [closed_loop_bridge/iteration_policy.json](closed_loop_bridge/iteration_policy.json) | Fixed policy, supported range, stopping criteria, and source references |
+| [closed_loop_bridge/trajectory_comparison.json](closed_loop_bridge/trajectory_comparison.json) | State comparisons, design decisions, and final stopping reason |
+| [closed_loop_bridge/trajectory_summary.md](closed_loop_bridge/trajectory_summary.md) | Readable trajectory and section tradeoffs |
+| [closed_loop_bridge/trajectory/](closed_loop_bridge/trajectory/) | Exact design states and parameters, structural responses, convergence/equilibrium information, forces and cable states, feedback, and provenance |
 
-Routes are `/#/bridge`, `/#/loop-towers` and `/#/pavilion`. The compact case selector opens directly on a working case rather than an intermediate landing screen.
+## Adapting the Pipeline
 
-The bridge mounts as an independent React component. The other two retain their native JavaScript applications in same-origin iframe documents. This is deliberate: their different Three.js versions, event bindings, solver workers, global IDs and state remain isolated. The shared stylesheet and adapter give them the same interface. No universal structural-model or solver API is imposed.
+The conceptual interface is:
 
-**Switching case starts a fresh experiment at that case's own defaults.** Leaving the bridge unmounts its view and terminates its worker. Removing either native-case iframe discards its document, animation loop and workers. Browser back/forward works with the case routes. Export Model/Results JSON before leaving a case to retain a particular experiment. There is no new import or autosave feature.
+**objective + controlled design variable + update/feedback rule + stopping criteria + mechanics backend**
 
-## Authoritative structural representations
+The following are future examples, not currently verified executable configurations:
 
-The following supplied JSON files are retained **byte-for-byte**. Each exactly matches the output of its unchanged default model generator. None of the visualization meshes or GLB/STL files replaces the structural model.
+| Example objective | Possible controlled variable |
+|---|---|
+| Limit cable force | Cable prestress |
+| Reduce material demand subject to a displacement constraint | Section dimensions |
 
-| Case | Authoritative default snapshot | Runtime generator / geometry | Analysis implementation |
-|---|---|---|---|
-| Bridge | `public/cases/bridge/model.json` | `cases/bridge/model.mjs:createModel`; `cases/bridge/geometry.mjs`; `cases/bridge/BridgeView.tsx` | `public/cases/bridge/worker.mjs` → `solver.mjs`, `hybrid.mjs`, `frame-element.mjs` |
-| Loop Towers | `public/cases/loop-towers/model.json` | `public/cases/loop-towers/model.js:makeModel` and rendering geometry in `app.js` | `worker.js` → `solver.js` in the same folder |
-| Pavilion | `public/cases/pavilion/model.json` | `public/cases/pavilion/model.js:makeModel`, `surface`; rendering geometry in `app.js` | `public/cases/pavilion/solver.js:solve`, called by `app.js` |
+The present repository's verified controller implements the Bridge `maximum deck displacement / primaryScale` case. New objective/parameter combinations require implementation and validation of the corresponding metric and parameter adapter.
 
-The running applications generate their model objects in the same way as the originals; they do not reload the default JSON when a control changes. For a changed experiment, the **current model object plus its active parameters** is authoritative. Use the existing Model JSON and Results JSON export controls to record it. Preserve each case's original export conventions:
+An extension needs a response metric/extractor, a design-parameter adapter, an update rule, validity/acceptance logic, and tests for the intended mechanics backend. The general fields in `DesignSpec` describe the design; they do not make new objectives or controlled variables executable. The current validators also enforce the update size, target, revision limit, and supported range, so editing the policy JSON alone does not enable a different iteration strategy.
 
-- **Bridge:** `createModel(settings)` applies material, section and load parameters before solving. Model JSON contains the active model. Result JSON contains model and results. Displacements include prestress equilibration.
-- **Loop Towers:** the solver receives a baseline model plus parameters. The model export already scales E, areas and loads; do not apply the multipliers twice. Result exports retain active parameters and element state.
-- **Pavilion:** model exports retain baseline definitions and `activeParameters`/`activeLoad`; parameters must be applied once. Results retain the original solver's response conventions.
+## Structural Cases
 
-### Preserved data and exports
+### Twin-Arch Web Bridge
 
-Bridge `model.json`, `baseline-results.json`, GLB, STL, `ASSUMPTIONS.md`, README and all supplied validation JSON files remain in `public/cases/bridge/`. Its live Model JSON, Results JSON, GLB and STL exporters remain available. Geometry exports use undeformed coordinates and the original units/conventions.
+Executable reconstruction, structural analysis, validation, and the closed-loop design demonstration.
 
-Loop Towers retains `model.json`, `model.js`, `solver.js`, `worker.js`, README and vendored Three.js files, along with its live model/result exports. No separate GLB/STL or precomputed result file was supplied in that project; none is fabricated.
+### Loop Towers
 
-Pavilion retains `model.json`, `baseline-results.json`, `model.js`, `solver.js`, README and vendored Three.js files, along with its live model/result exports. No GLB/STL was supplied; none is fabricated.
+Executable reconstruction, structural analysis, and parameter perturbation / validation. Not connected to the closed-loop controller.
 
-All three complete original archives are also retained under `public/downloads/`. This includes original standalone builds, source, tests and any auxiliary files not used by the integrated runtime. The separately attached `building_model.json` and `pavilion_model.json` were verified identical to the matching project snapshots and are retained there too. Original concept attachments are shown from `original-concept.png`; the projects' own `reference.png` assets are also preserved.
+### Woven-Wing Pavilion
 
-## Interface and experiments
+Executable reconstruction, structural analysis, and parameter perturbation / validation. Not connected to the closed-loop controller.
 
-Every case provides Geometry, Structure and Response modes; Perspective, Front, Side, Top and Fit model/reset-camera controls; orbit, zoom and pan; an Original Concept thumbnail with enlargement; structural hierarchy; four response slots; and right-side experiment sections:
+The reusable closed-loop pipeline is currently demonstrated end-to-end on the Bridge case.
 
-1. Loading
-2. Material & Sections
-3. Deformation / Analysis
-4. Reset / Export
+## Repository Structure
 
-Existing case-specific features remain, including the bridge's node loads, region highlights, clearance and export controls; the towers' circulation display, tension-only member inspection, animation and two lateral loading directions; and the pavilion's load vectors, actual/amplified displacement and model notes. A pavilion member-number inspector reads the existing member and axial-force arrays.
-
-Pavilion peak axial force remains its third metric. No new utilization or capacity calculation was invented. Residuals remain visible. The bridge reports convergence only after its existing solver returns successfully; that solver throws on failed equilibrium. A shared visual slot does not imply that different cases' quantities are physically interchangeable.
-
-## Modify one case independently
-
-- **Bridge geometry:** edit only `cases/bridge/model.mjs` for structural coordinates/connectivity and `cases/bridge/geometry.mjs` for visualization. Preserve/update that case's snapshot and documented expectations intentionally. Solver changes belong only in `public/cases/bridge/`.
-- **Tower lateral loading:** edit only its `model.js`, `app.js` and local controls as appropriate. The bridge and pavilion do not import these files.
-- **Pavilion refinement:** edit only `public/cases/pavilion/`. Its equivalent mechanical mesh and fine visual weave remain distinct.
-- **Platform appearance:** edit `shared/` and `public/shared/lab.css`/`integration.js`. These files must not contain mechanics parameters or model definitions.
-
-`cases/loop-towers/README.md` and `cases/pavilion/README.md` point to their deliberately retained native source locations. Avoid creating a second copy of their runtime geometry or solver.
-
-## Standalone verification and preserved baselines
-
-After building:
-
-```bash
-npm test
+```text
+cephalo-silk-design-pipeline/
+  pipeline/           DesignSpec, Bridge adapters, controller, and diagnostics
+  closed_loop_bridge/ Policy, saved reference states, and trajectory outputs
+  cases/              Bridge application and native-case source pointers
+  public/cases/       Case assets, models, solvers, and native applications
+  validation/         Preserved numerical validation records
+  tests/              Controller, preservation, integration, and serving checks
+  docs/               Development history and scientific provenance
 ```
 
-This runs:
+## Scope and Limitations
 
-- `npm run test:preservation`: SHA-256 comparison of all 102 protected scientific/data/worker/rendering/style/validation files against the integrated source snapshot.
-- `npm run test:integration`: extracts the original source archives using Node, compares full generated models and full baseline results, then checks a representative parameter change against each original solver. Comparisons use the same solver-module histories. It writes only `test-output/integration-report.json`.
-- `npm run test:static`: serves the same `dist/` at `/` and `/cephalo-structural-lab/`; checks asset paths, JavaScript MIME types, exact public-file bytes, native-case downloads, the source archive, preserved validation records and real 404 responses for missing modules. It writes `test-output/static-report.json`.
+The current executable controller is deterministic, rule-based, single-objective, single-design-variable, and Bridge-specific. It does not perform numerical optimization, topology optimization, autonomous engineering design, structural-code compliance, or safety certification. Results retain the idealized models' original mechanics assumptions and limitations.
 
-| Case / baseline metric | Preserved value |
-|---|---:|
-| Bridge maximum deck displacement | 36.74593686122058 mm |
-| Bridge maximum all-node displacement | 76.8779380859019 mm |
-| Bridge total vertical reaction | 8,400 kN |
-| Loop Towers maximum displacement | 23.095865369389422 mm |
-| Woven-Wing Pavilion maximum displacement | 139.4686375173227 mm |
+Future work may expand objectives, design variables, cases, feedback strategies, optimization, or agent reasoning. These are extension directions, not present capabilities.
 
-All full baseline and representative control-change result objects matched exactly in the tested Node runtime. This checks conversion equivalence, not renewed mechanics validity. Minor floating-point differences across JavaScript engines do not change the preserved files. Existing mechanics assumptions, limitations and physics-study findings continue to apply without reinterpretation.
+## Detailed Documentation and Provenance
 
-The completed study remains at `validation/physics/`, including every individual run, CSV summary, JSON results and report. Existing historical test/study scripts and source manifests are preserved as research records; they are not build dependencies and may describe pre-conversion paths or files. Do not run them with overwrite options to validate this deployment conversion. The supported conversion tests above write to a separate directory.
+The original [Structural Lab source](https://github.com/wlululu/cephalo-silk-structural-lab) is preserved at commit `b6eeff872ccd62ddab8563cd2de6dcaf3a749340`.
 
-`reproducibility/` contains the conversion verification evidence. `CONVERSION_NOTES.md` explicitly lists removed/replaced infrastructure and dependencies, every modified/added/deleted file, tested commands, browser coverage and limitations. The original `INTEGRATION_NOTES.md` and original case READMEs remain historical records.
+- [Development history and scientific provenance](docs/development-and-provenance.md)
+- [Pipeline architecture and implementation](pipeline/README.md)
+- [Bridge trajectory summary](closed_loop_bridge/trajectory_summary.md)
+- [Machine-readable trajectory comparison](closed_loop_bridge/trajectory_comparison.json)
+- [Iteration policy](closed_loop_bridge/iteration_policy.json)
+- [Source inspection](pipeline/source-inspection.md)
+- [Validation records](validation/)
