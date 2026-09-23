@@ -1,0 +1,107 @@
+{
+  "schema_version": "1.0.0",
+  "design_id": "design_iteration_02",
+  "parent_design_id": "design_iteration_01",
+  "source_case": "bridge",
+  "source_model": {
+    "path": "public/cases/bridge/model.json",
+    "commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340"
+  },
+  "mechanics_backend": {
+    "id": "original-bridge-hybrid",
+    "generator": "cases/bridge/model.mjs",
+    "solver": "public/cases/bridge/solver.mjs"
+  },
+  "input": {
+    "kind": "research_prompt_with_existing_model",
+    "prompt": "Reduce maximum deck displacement relative to baseline by changing only primary structural section scale.",
+    "image_reference": "public/cases/bridge/original-concept.png",
+    "image_to_geometry_performed": false
+  },
+  "objective": {
+    "description": "Reduce maximum deck displacement relative to baseline",
+    "metric": "maxDeckDisplacement",
+    "relation": "iteration < baseline"
+  },
+  "constraints": {
+    "mutable_parameters": [
+      "primaryScale"
+    ],
+    "invariants": [
+      "nodes",
+      "topology",
+      "supports",
+      "loads",
+      "materials",
+      "secondaryScale",
+      "cablePrestress",
+      "cable rest lengths",
+      "solver equations and tolerances"
+    ]
+  },
+  "baseline_parameters": {
+    "loadCase": "uniform",
+    "pressure": 5,
+    "pointLoad": 500,
+    "E": 200,
+    "primaryScale": 1,
+    "secondaryScale": 1,
+    "selectedNode": 13,
+    "nodeLoad": 0,
+    "cablePrestress": 80
+  },
+  "parameter_overrides": {
+    "primaryScale": 1.5
+  },
+  "provenance": {
+    "source_repository": "https://github.com/wlululu/cephalo-silk-structural-lab",
+    "source_commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
+    "pipeline_repository": "https://github.com/wlululu/cephalo-silk-design-pipeline",
+    "pipeline_starting_commit": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
+    "execution_head": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
+    "working_tree_status": "M README.md\n M closed_loop_bridge/README.md\n M pipeline/README.md\n M pipeline/bridge-backend.mjs\n M pipeline/source-inspection.md\n M scripts/run_closed_loop_bridge.mjs\n M tests/closed-loop.mjs\n?? closed_loop_bridge/iteration_policy.json\n?? closed_loop_bridge/trajectory/\n?? pipeline/bridge-trajectory.mjs\n?? pipeline/iteration-controller.mjs",
+    "timestamp": "2026-09-23T21:17:27.063Z",
+    "execution_command": "npm run closed-loop:bridge",
+    "node": "v24.21.0",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "generator_version": "2.0.0",
+    "source_sha256": {
+      "public/cases/bridge/model.json": "c78af1ec0f341c2ddb7b06fbfed8219272eaed7543ede6651c2bd36c363d91b2",
+      "cases/bridge/model.mjs": "0d5e1406d6cabaf031105d5ec42ecb46b48f136fb0ea91f8f588b1cf524574a9",
+      "public/cases/bridge/solver.mjs": "2da01b8bfd510b1b0a972a4f89a3a0d9569930bfdd6fd90d993ee04659a0cce0",
+      "public/cases/bridge/hybrid.mjs": "1c7132f610edfb49a985a6011ccffcf3723bab353e9e6298f0e02c3ee734f4b1",
+      "public/cases/bridge/frame-element.mjs": "f18b410cc715ee3570e192b2c592492ecfc32cab2345fc5ba771af6959e51cc4"
+    },
+    "pipeline_sha256": {
+      "pipeline/bridge-backend.mjs": "31fce0149672fac5749e6144b7cab0d895149009e0c1610883fd6337f91fc799",
+      "pipeline/bridge-trajectory.mjs": "26e94b4f2acf9552dd7985ec7e480a4a18956b56ab51f0cb71c2cfeaeb43aaed",
+      "pipeline/iteration-controller.mjs": "b2c5cd2711df3431939b03201d3adf769fd79a8fefe36ad8b63cafd4d36d0f12",
+      "pipeline/diagnostics.mjs": "3dd8035b29b81ef8da44e98a4aa30b8b9efbff0970b222534290d65ddb11a260",
+      "pipeline/designspec.schema.json": "ea301c8cda0575ec9dbc9c7d9e81aa367f42bc6e53f36fd5922ad10625742733",
+      "scripts/run_closed_loop_bridge.mjs": "9e7827d1fcca02dd1e7f84b10d3234895f4289f024ef6c5dc5e6d5bcf71ea6c0",
+      "closed_loop_bridge/iteration_policy.json": "42836b6ae6e756e2f808b2271f48a45e2ae073b9cff79078f89768f16a9e2729"
+    }
+  },
+  "revision": {
+    "revision_step": 2,
+    "previous_primaryScale": 1.25,
+    "step_size": 0.25,
+    "original_baseline_primaryScale": 1,
+    "illustrative_target_reduction_percent": 20,
+    "policy_reference": "closed_loop_bridge/iteration_policy.json",
+    "policy_sha256": "42836b6ae6e756e2f808b2271f48a45e2ae073b9cff79078f89768f16a9e2729",
+    "feedback_reference": "closed_loop_bridge/trajectory/feedback_for_iteration_02.json",
+    "feedback_sha256": "9a255ebfd441d417ddf674f385ec5cd4dcbb7694ec8e286367fc7b44cbb01f0d",
+    "unchanged_parameters": {
+      "loadCase": "uniform",
+      "pressure": 5,
+      "pointLoad": 500,
+      "E": 200,
+      "secondaryScale": 1,
+      "selectedNode": 13,
+      "nodeLoad": 0,
+      "cablePrestress": 80
+    }
+  }
+}

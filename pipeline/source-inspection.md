@@ -1,3 +1,15 @@
+# Version 2 inspection addendum
+
+Version 1 has since been published at `f6c3b73059246a36e167e98f12ef1b393ed893ab`, directly descending from the immutable source commit. The original inspection below remains historical; its prior publication-blocked status is superseded by this verified starting commit.
+
+The original primary-scale UI range is **0.5–1.5**, step 0.05 (`cases/bridge/BridgeCase.tsx`). Version 2 conservatively enforces that existing range even though `createModel` performs arithmetic without its own upper-bound check. **1.50 is supported; 1.75 is not**. The controller verifies the unchanged UI range against `iteration_policy.json` before execution and rejects out-of-range next values without solving. Original generator, solver, UI, workers, loads and scientific records are unchanged.
+
+Version 2 changes only pipeline-layer implementation/tests/documentation and adds policy/trajectory files. Existing npm command names and dependency versions are unchanged. Two fresh Version 1 verification solves matched full saved responses exactly before the new Iteration 02 was executed. No commit, tag, push or remote change is made in this session.
+
+---
+
+## Preserved Version 1 inspection
+
 # Source inspection and parameter decision
 
 Source: https://github.com/wlululu/cephalo-silk-structural-lab at `b6eeff872ccd62ddab8563cd2de6dcaf3a749340` (`Initial standalone Cephalo Structural Lab`). Local clone HEAD matched exactly before any edits. 213 tracked source files. Local tag `structural-lab-baseline` points to this commit.

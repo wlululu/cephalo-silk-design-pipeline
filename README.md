@@ -1,8 +1,10 @@
-# Cephalo-Silk Design Pipeline
+# Cephalo-Silk Design Pipeline — Version 2
 
-Additive research prototype initialized by an exact clone of [Cephalo-Silk Structural Lab](https://github.com/wlululu/cephalo-silk-structural-lab) at **`b6eeff872ccd62ddab8563cd2de6dcaf3a749340`**. Original structural models, mechanics solvers, numerical baselines and archived study records are preserved as the scientific starting point. The original source repository remains separately available and immutable for this work.
+This working tree extends verified Version 1 commit **`f6c3b73059246a36e167e98f12ef1b393ed893ab`**, whose parent is the immutable [Structural Lab](https://github.com/wlululu/cephalo-silk-structural-lab) source **`b6eeff872ccd62ddab8563cd2de6dcaf3a749340`**. Original scientific assets and Version 1 baseline/Iteration 01 records remain unchanged. Version 2 changes are intentionally uncommitted; no push, tag creation or remote modification is performed.
 
-The new design/configuration layer demonstrates one **physics-guided closed-loop design iteration**: DesignSpec → executable structural model → original physics solver → response → explicit feedback → revised DesignSpec → re-analysis → comparison. Bridge primary section scale is the only changed variable (1 → 1.25). No geometry reconstruction, Blender, UI redesign or optimization algorithm is added.
+The **deterministic rule-based closed-loop controller** makes multi-step design refinement auditable: DesignSpec → executable structural model → unchanged physics solver → response → fixed parameter update rule → re-analysis → stopping decision. Only `primaryScale` changes, by exactly +0.25, with an illustrative target of ≥20% maximum deck-displacement reduction relative to the original baseline and at most three revisions. The existing supported range remains 0.50–1.50; 1.75 is not permitted.
+
+The executed trajectory is **1.00 → 1.25 → 1.50**. It stops at Iteration 02 with **24.021278%** reduction and `illustrative_target_reached`. Iteration 03 was not executed. This is a physics-guided closed-loop design iteration procedure, not an optimization algorithm or engineering safety assessment. Existing Euler screening concerns remain.
 
 ```bash
 npm ci
@@ -12,9 +14,9 @@ npm run build
 npm test
 ```
 
-[Pipeline architecture](pipeline/README.md) · [Source inspection](pipeline/source-inspection.md) · [Bridge results and limitations](closed_loop_bridge/README.md)
+[Architecture and controller](pipeline/README.md) · [Meeting-ready trajectory](closed_loop_bridge/trajectory_summary.md) · [Machine-readable trajectory](closed_loop_bridge/trajectory_comparison.json) · [Policy](closed_loop_bridge/iteration_policy.json) · [Original source inspection](pipeline/source-inspection.md)
 
-New code and records are additive; only this README and npm script entries in `package.json` modify existing files. Every other original tracked file is verified byte-identical to the source commit. Publication is currently blocked by GitHub write access; the local baseline tag exists, but the required baseline push and development commit/push have not been completed. See source inspection for exact access errors. Do not interpret the historical deployment notes below as a new publication claim.
+The unchanged old `closed_loop_bridge/publication-status.json` and historical documentation describe the earlier Version 1 handoff; they are retained as records, not current publication status. Version 1 is now present on GitHub at the starting commit above. Version 2 awaits manual review, commit and push. No new UI, Blender, model geometry, solver equations or dependencies are added.
 
 ---
 

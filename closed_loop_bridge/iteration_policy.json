@@ -1,0 +1,26 @@
+{
+  "schema_version": "2.0.0",
+  "controller": "deterministic rule-based closed-loop controller",
+  "objective_metric": "maxDeckDisplacement",
+  "reference_baseline": {"design_id": "bridge_baseline", "primaryScale": 1, "response": "closed_loop_bridge/baseline_response.json"},
+  "target_reduction_percent": 20,
+  "target_interpretation": "Illustrative design target for demonstrating the pipeline; not a serviceability requirement, engineering design limit, safety criterion or claim of optimality.",
+  "controlled_variable": "primaryScale",
+  "step_size": 0.25,
+  "max_revision_steps": 3,
+  "supported_range": {"min": 0.5, "max": 1.5, "ui_step": 0.05, "evidence": "cases/bridge/BridgeCase.tsx: Primary section scale Range; cases/bridge/model.mjs: createModel section mapping", "interpretation": "Conservatively retain the existing application control range. The generator accepts unbounded arithmetic inputs but does not establish support outside this range. 1.50 is supported; 1.75 is not."},
+  "hard_stop_conditions": ["solver_nonconvergence", "numerical_acceptance_failed", "equilibrium_failed", "no_improvement", "unsupported_next_primary_scale", "max_revision_steps_reached"],
+  "additional_provenance_gate": "version_1_reproduction_failed",
+  "decision_precedence": ["failed provenance or solve/numerical/equilibrium acceptance", "no improvement versus previous accepted state", "illustrative target reached versus original baseline", "revision count limit", "next value outside supported range", "continue with fixed increment"],
+  "acceptance_reference": "Unchanged solver-exported initial/load residual tolerances and validation/physics/protocol.json global force/moment relative thresholds. Existing screening indicators are reported, not treated as safety certification or added stop criteria.",
+  "search_used": false,
+  "optimization_used": false,
+  "llm_or_agent_decisions": false,
+  "provenance": {
+    "source_repository": "https://github.com/wlululu/cephalo-silk-structural-lab",
+    "source_commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
+    "pipeline_repository": "https://github.com/wlululu/cephalo-silk-design-pipeline",
+    "pipeline_starting_commit": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
+    "definition": "User-specified fixed Version 2 policy; supported range inspected in unchanged Version 1 application."
+  }
+}

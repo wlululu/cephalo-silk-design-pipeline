@@ -43,8 +43,8 @@ export function checkModel(model,parameters){
  assert.deepEqual({...model,settings:original.settings,members:original.members},original,'Geometry, loads, materials or supports changed');
  return affected;
 }
-export function execute(spec){
- const parameters=validateSpec(spec),model=createModel(parameters);
+export function execute(spec,validator=validateSpec){
+ const parameters=validator(spec),model=createModel(parameters);
  const affected=checkModel(model,parameters),start=performance.now(),result=solve(model);
  return {parameters,model,result,affected,elapsed_seconds:(performance.now()-start)/1000};
 }

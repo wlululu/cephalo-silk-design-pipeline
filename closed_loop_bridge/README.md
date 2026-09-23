@@ -1,3 +1,15 @@
+# Version 2: multi-step Bridge trajectory
+
+The current controller and freshly executed results are documented in [trajectory_summary.md](trajectory_summary.md), [trajectory_comparison.json](trajectory_comparison.json), and [iteration_policy.json](iteration_policy.json). Run `npm run closed-loop:bridge` for the complete fixed-rule loop. The prior `--baseline` / `--iteration` overwrite modes are retired to protect Version 1 files.
+
+Starting commit: `f6c3b73059246a36e167e98f12ef1b393ed893ab`. Version 1 baseline and Iteration 01 files, feedback, comparison and historical status/provenance are preserved byte-for-byte. Their original numerical results and interpretation below remain a historical one-step record. Fresh verification outputs are written to `trajectory/`; Iteration 02 is a new additive record. Old publication-blocked statements below describe that earlier handoff, not current GitHub state.
+
+Version 2 reaches the illustrative 20% target at scale 1.50: deck displacement 27.919093139 mm, a 24.021278% reduction from baseline. It stops immediately; no Iteration 03 exists. Baseline and Iteration 01 are verified with fresh solves before advancing. All new changes remain uncommitted and unpushed for manual review.
+
+---
+
+## Preserved Version 1 research summary (historical)
+
 # Twin-Arch Web Bridge: physics-guided closed-loop design iteration
 
 **Local implementation, real solver execution, build and tests pass. Git publication is blocked.** No development commit has been created because the required untouched-baseline push must happen first. Destination remains empty as last checked. See `publication-status.json`.
