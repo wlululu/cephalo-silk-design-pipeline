@@ -7,9 +7,9 @@
     "source_commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
     "pipeline_repository": "https://github.com/wlululu/cephalo-silk-design-pipeline",
     "pipeline_starting_commit": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
-    "execution_head": "22fb33f4078dc56c920ee9296c442617749374b5",
-    "working_tree_status": "M README.md\n M closed_loop_bridge/iteration_policy.json\n M closed_loop_bridge/trajectory/baseline_verification.json\n M closed_loop_bridge/trajectory/design_iteration_02.json\n M closed_loop_bridge/trajectory/feedback_for_iteration_02.json\n M closed_loop_bridge/trajectory/iteration_01_verification.json\n M closed_loop_bridge/trajectory/iteration_02_response.json\n M closed_loop_bridge/trajectory/preservation_verification.json\n M closed_loop_bridge/trajectory_comparison.json\n M package.json\n M pipeline/README.md\n M pipeline/bridge-trajectory.mjs\n M pipeline/iteration-controller.mjs\n M scripts/run_closed_loop_bridge.mjs\n M tests/closed-loop.mjs\n?? pipeline/adapter-registry.mjs\n?? pipeline/bridge-adapters.mjs\n?? pipeline/objective-adapter.mjs\n?? tests/iteration-controller.mjs",
-    "timestamp": "2026-09-23T22:22:12.306Z",
+    "execution_head": "cd74e077d61cfcba91f8c53dbe8e6eeb4120285a",
+    "working_tree_status": "M README.md\n M closed_loop_bridge/trajectory/baseline_verification.json\n M closed_loop_bridge/trajectory/design_iteration_02.json\n M closed_loop_bridge/trajectory/feedback_for_iteration_02.json\n M closed_loop_bridge/trajectory/iteration_01_verification.json\n M closed_loop_bridge/trajectory/iteration_02_response.json\n M closed_loop_bridge/trajectory/preservation_verification.json\n M closed_loop_bridge/trajectory_comparison.json\n M main.tsx\n M package.json\n M pipeline/README.md\n M pipeline/bridge-backend.mjs\n M shared/Platform.tsx\n?? pipeline-ui/\n?? shared/SurfaceNavigation.tsx\n?? shared/surface-navigation.css\n?? tests/pipeline-preservation.mjs\n?? tests/pipeline-ui.mjs",
+    "timestamp": "2026-09-23T23:36:57.088Z",
     "execution_command": "npm run closed-loop:bridge",
     "node": "v24.21.0",
     "platform": "darwin",
@@ -24,7 +24,7 @@
       "public/cases/bridge/frame-element.mjs": "f18b410cc715ee3570e192b2c592492ecfc32cab2345fc5ba771af6959e51cc4"
     },
     "pipeline_sha256": {
-      "pipeline/bridge-backend.mjs": "31fce0149672fac5749e6144b7cab0d895149009e0c1610883fd6337f91fc799",
+      "pipeline/bridge-backend.mjs": "33a7d0d6969456201cc7fba1305d0c198d884888d39988055bbad4c16378955c",
       "pipeline/bridge-trajectory.mjs": "ba9d9f74d3e5f8e9404a9311d0b67aaede043304de7ae64458fd4a6a0faf37f3",
       "pipeline/iteration-controller.mjs": "b70063f21de6aab9765eb81d01c8bcc49c72d1e43d5ca606203f236b0d915219",
       "pipeline/objective-adapter.mjs": "3ede8b23314cc6ef8b4b8933d556cfd23b9281cbfb092eca5d92ce93360bc496",
@@ -36,7 +36,7 @@
       "closed_loop_bridge/iteration_policy.json": "613f226149a0ecb1627b859fb6b59c46a6813d3c6e7a6235016534a17b0862db"
     }
   },
-  "completed_at": "2026-09-23T22:22:45.240Z",
+  "completed_at": "2026-09-23T23:37:30.313Z",
   "policy_path": "closed_loop_bridge/iteration_policy.json",
   "policy_sha256": "613f226149a0ecb1627b859fb6b59c46a6813d3c6e7a6235016534a17b0862db",
   "policy": {
@@ -112,15 +112,15 @@
       "primaryScale": 1,
       "designspec_path": "closed_loop_bridge/baseline_designspec.json",
       "response_path": "closed_loop_bridge/trajectory/baseline_verification.json",
-      "response_sha256": "b15a2ca3b3bb6a1cd2ea23249a05bb30ca075761b303828de490983ebab85c27",
+      "response_sha256": "4d5a7042f1533ace418fcda9c5da4b507cd8d70b886d97b58f7061654b428b25",
       "provenance": {
         "source_repository": "https://github.com/wlululu/cephalo-silk-structural-lab",
         "source_commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
         "pipeline_repository": "https://github.com/wlululu/cephalo-silk-design-pipeline",
         "pipeline_starting_commit": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
-        "execution_head": "22fb33f4078dc56c920ee9296c442617749374b5",
-        "working_tree_status": "M README.md\n M closed_loop_bridge/iteration_policy.json\n D closed_loop_bridge/trajectory/baseline_verification.json\n D closed_loop_bridge/trajectory/design_iteration_02.json\n D closed_loop_bridge/trajectory/feedback_for_iteration_02.json\n D closed_loop_bridge/trajectory/iteration_01_verification.json\n D closed_loop_bridge/trajectory/iteration_02_response.json\n D closed_loop_bridge/trajectory/preservation_verification.json\n D closed_loop_bridge/trajectory_comparison.json\n D closed_loop_bridge/trajectory_summary.md\n M package.json\n M pipeline/README.md\n M pipeline/bridge-trajectory.mjs\n M pipeline/iteration-controller.mjs\n M scripts/run_closed_loop_bridge.mjs\n M tests/closed-loop.mjs\n?? pipeline/adapter-registry.mjs\n?? pipeline/bridge-adapters.mjs\n?? pipeline/objective-adapter.mjs\n?? tests/iteration-controller.mjs",
-        "timestamp": "2026-09-23T22:22:12.370Z",
+        "execution_head": "cd74e077d61cfcba91f8c53dbe8e6eeb4120285a",
+        "working_tree_status": "M README.md\n D closed_loop_bridge/trajectory/baseline_verification.json\n D closed_loop_bridge/trajectory/design_iteration_02.json\n D closed_loop_bridge/trajectory/feedback_for_iteration_02.json\n D closed_loop_bridge/trajectory/iteration_01_verification.json\n D closed_loop_bridge/trajectory/iteration_02_response.json\n D closed_loop_bridge/trajectory/preservation_verification.json\n D closed_loop_bridge/trajectory_comparison.json\n D closed_loop_bridge/trajectory_summary.md\n M main.tsx\n M package.json\n M pipeline/README.md\n M pipeline/bridge-backend.mjs\n M shared/Platform.tsx\n?? pipeline-ui/\n?? shared/SurfaceNavigation.tsx\n?? shared/surface-navigation.css\n?? tests/pipeline-preservation.mjs\n?? tests/pipeline-ui.mjs",
+        "timestamp": "2026-09-23T23:36:57.154Z",
         "execution_command": "node scripts/run_closed_loop_bridge.mjs --worker 0",
         "node": "v24.21.0",
         "platform": "darwin",
@@ -135,7 +135,7 @@
           "public/cases/bridge/frame-element.mjs": "f18b410cc715ee3570e192b2c592492ecfc32cab2345fc5ba771af6959e51cc4"
         },
         "pipeline_sha256": {
-          "pipeline/bridge-backend.mjs": "31fce0149672fac5749e6144b7cab0d895149009e0c1610883fd6337f91fc799",
+          "pipeline/bridge-backend.mjs": "33a7d0d6969456201cc7fba1305d0c198d884888d39988055bbad4c16378955c",
           "pipeline/bridge-trajectory.mjs": "ba9d9f74d3e5f8e9404a9311d0b67aaede043304de7ae64458fd4a6a0faf37f3",
           "pipeline/iteration-controller.mjs": "b70063f21de6aab9765eb81d01c8bcc49c72d1e43d5ca606203f236b0d915219",
           "pipeline/objective-adapter.mjs": "3ede8b23314cc6ef8b4b8933d556cfd23b9281cbfb092eca5d92ce93360bc496",
@@ -1938,15 +1938,15 @@
       "primaryScale": 1.25,
       "designspec_path": "closed_loop_bridge/design_iteration_01.json",
       "response_path": "closed_loop_bridge/trajectory/iteration_01_verification.json",
-      "response_sha256": "2972623415d59a9d0670b63ee797861371f90f61c4f2b8db8331413698a4b02b",
+      "response_sha256": "47eb9321e1e3a9543beb6b5dfebc6d87f3ff2db099463c54d9b61de8bc98765a",
       "provenance": {
         "source_repository": "https://github.com/wlululu/cephalo-silk-structural-lab",
         "source_commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
         "pipeline_repository": "https://github.com/wlululu/cephalo-silk-design-pipeline",
         "pipeline_starting_commit": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
-        "execution_head": "22fb33f4078dc56c920ee9296c442617749374b5",
-        "working_tree_status": "M README.md\n M closed_loop_bridge/iteration_policy.json\n M closed_loop_bridge/trajectory/baseline_verification.json\n D closed_loop_bridge/trajectory/design_iteration_02.json\n D closed_loop_bridge/trajectory/feedback_for_iteration_02.json\n D closed_loop_bridge/trajectory/iteration_01_verification.json\n D closed_loop_bridge/trajectory/iteration_02_response.json\n D closed_loop_bridge/trajectory/preservation_verification.json\n D closed_loop_bridge/trajectory_comparison.json\n D closed_loop_bridge/trajectory_summary.md\n M package.json\n M pipeline/README.md\n M pipeline/bridge-trajectory.mjs\n M pipeline/iteration-controller.mjs\n M scripts/run_closed_loop_bridge.mjs\n M tests/closed-loop.mjs\n?? pipeline/adapter-registry.mjs\n?? pipeline/bridge-adapters.mjs\n?? pipeline/objective-adapter.mjs\n?? tests/iteration-controller.mjs",
-        "timestamp": "2026-09-23T22:22:25.669Z",
+        "execution_head": "cd74e077d61cfcba91f8c53dbe8e6eeb4120285a",
+        "working_tree_status": "M README.md\n M closed_loop_bridge/trajectory/baseline_verification.json\n D closed_loop_bridge/trajectory/design_iteration_02.json\n D closed_loop_bridge/trajectory/feedback_for_iteration_02.json\n D closed_loop_bridge/trajectory/iteration_01_verification.json\n D closed_loop_bridge/trajectory/iteration_02_response.json\n D closed_loop_bridge/trajectory/preservation_verification.json\n D closed_loop_bridge/trajectory_comparison.json\n D closed_loop_bridge/trajectory_summary.md\n M main.tsx\n M package.json\n M pipeline/README.md\n M pipeline/bridge-backend.mjs\n M shared/Platform.tsx\n?? pipeline-ui/\n?? shared/SurfaceNavigation.tsx\n?? shared/surface-navigation.css\n?? tests/pipeline-preservation.mjs\n?? tests/pipeline-ui.mjs",
+        "timestamp": "2026-09-23T23:37:10.632Z",
         "execution_command": "node scripts/run_closed_loop_bridge.mjs --worker 1",
         "node": "v24.21.0",
         "platform": "darwin",
@@ -1961,7 +1961,7 @@
           "public/cases/bridge/frame-element.mjs": "f18b410cc715ee3570e192b2c592492ecfc32cab2345fc5ba771af6959e51cc4"
         },
         "pipeline_sha256": {
-          "pipeline/bridge-backend.mjs": "31fce0149672fac5749e6144b7cab0d895149009e0c1610883fd6337f91fc799",
+          "pipeline/bridge-backend.mjs": "33a7d0d6969456201cc7fba1305d0c198d884888d39988055bbad4c16378955c",
           "pipeline/bridge-trajectory.mjs": "ba9d9f74d3e5f8e9404a9311d0b67aaede043304de7ae64458fd4a6a0faf37f3",
           "pipeline/iteration-controller.mjs": "b70063f21de6aab9765eb81d01c8bcc49c72d1e43d5ca606203f236b0d915219",
           "pipeline/objective-adapter.mjs": "3ede8b23314cc6ef8b4b8933d556cfd23b9281cbfb092eca5d92ce93360bc496",
@@ -3753,15 +3753,15 @@
       "primaryScale": 1.5,
       "designspec_path": "closed_loop_bridge/trajectory/design_iteration_02.json",
       "response_path": "closed_loop_bridge/trajectory/iteration_02_response.json",
-      "response_sha256": "55441a5f2c7cb346d7ab81b34b1fa7353b1933494cec3f2242018f8f9a2d730d",
+      "response_sha256": "13a24304024132194ed482900416dfde2b06e1b16782c26dcd41a52a72c3f4a1",
       "provenance": {
         "source_repository": "https://github.com/wlululu/cephalo-silk-structural-lab",
         "source_commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
         "pipeline_repository": "https://github.com/wlululu/cephalo-silk-design-pipeline",
         "pipeline_starting_commit": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
-        "execution_head": "22fb33f4078dc56c920ee9296c442617749374b5",
-        "working_tree_status": "M README.md\n M closed_loop_bridge/iteration_policy.json\n M closed_loop_bridge/trajectory/baseline_verification.json\n M closed_loop_bridge/trajectory/design_iteration_02.json\n M closed_loop_bridge/trajectory/feedback_for_iteration_02.json\n M closed_loop_bridge/trajectory/iteration_01_verification.json\n D closed_loop_bridge/trajectory/iteration_02_response.json\n D closed_loop_bridge/trajectory/preservation_verification.json\n D closed_loop_bridge/trajectory_comparison.json\n D closed_loop_bridge/trajectory_summary.md\n M package.json\n M pipeline/README.md\n M pipeline/bridge-trajectory.mjs\n M pipeline/iteration-controller.mjs\n M scripts/run_closed_loop_bridge.mjs\n M tests/closed-loop.mjs\n?? pipeline/adapter-registry.mjs\n?? pipeline/bridge-adapters.mjs\n?? pipeline/objective-adapter.mjs\n?? tests/iteration-controller.mjs",
-        "timestamp": "2026-09-23T22:22:38.508Z",
+        "execution_head": "cd74e077d61cfcba91f8c53dbe8e6eeb4120285a",
+        "working_tree_status": "M README.md\n M closed_loop_bridge/trajectory/baseline_verification.json\n M closed_loop_bridge/trajectory/design_iteration_02.json\n M closed_loop_bridge/trajectory/feedback_for_iteration_02.json\n M closed_loop_bridge/trajectory/iteration_01_verification.json\n D closed_loop_bridge/trajectory/iteration_02_response.json\n D closed_loop_bridge/trajectory/preservation_verification.json\n D closed_loop_bridge/trajectory_comparison.json\n D closed_loop_bridge/trajectory_summary.md\n M main.tsx\n M package.json\n M pipeline/README.md\n M pipeline/bridge-backend.mjs\n M shared/Platform.tsx\n?? pipeline-ui/\n?? shared/SurfaceNavigation.tsx\n?? shared/surface-navigation.css\n?? tests/pipeline-preservation.mjs\n?? tests/pipeline-ui.mjs",
+        "timestamp": "2026-09-23T23:37:23.447Z",
         "execution_command": "node scripts/run_closed_loop_bridge.mjs --worker 2",
         "node": "v24.21.0",
         "platform": "darwin",
@@ -3776,7 +3776,7 @@
           "public/cases/bridge/frame-element.mjs": "f18b410cc715ee3570e192b2c592492ecfc32cab2345fc5ba771af6959e51cc4"
         },
         "pipeline_sha256": {
-          "pipeline/bridge-backend.mjs": "31fce0149672fac5749e6144b7cab0d895149009e0c1610883fd6337f91fc799",
+          "pipeline/bridge-backend.mjs": "33a7d0d6969456201cc7fba1305d0c198d884888d39988055bbad4c16378955c",
           "pipeline/bridge-trajectory.mjs": "ba9d9f74d3e5f8e9404a9311d0b67aaede043304de7ae64458fd4a6a0faf37f3",
           "pipeline/iteration-controller.mjs": "b70063f21de6aab9765eb81d01c8bcc49c72d1e43d5ca606203f236b0d915219",
           "pipeline/objective-adapter.mjs": "3ede8b23314cc6ef8b4b8933d556cfd23b9281cbfb092eca5d92ce93360bc496",
@@ -5554,9 +5554,9 @@
       "source_commit": "b6eeff872ccd62ddab8563cd2de6dcaf3a749340",
       "pipeline_repository": "https://github.com/wlululu/cephalo-silk-design-pipeline",
       "pipeline_starting_commit": "f6c3b73059246a36e167e98f12ef1b393ed893ab",
-      "execution_head": "22fb33f4078dc56c920ee9296c442617749374b5",
-      "working_tree_status": "M README.md\n M closed_loop_bridge/iteration_policy.json\n M closed_loop_bridge/trajectory/baseline_verification.json\n D closed_loop_bridge/trajectory/design_iteration_02.json\n M closed_loop_bridge/trajectory/feedback_for_iteration_02.json\n M closed_loop_bridge/trajectory/iteration_01_verification.json\n D closed_loop_bridge/trajectory/iteration_02_response.json\n D closed_loop_bridge/trajectory/preservation_verification.json\n D closed_loop_bridge/trajectory_comparison.json\n D closed_loop_bridge/trajectory_summary.md\n M package.json\n M pipeline/README.md\n M pipeline/bridge-trajectory.mjs\n M pipeline/iteration-controller.mjs\n M scripts/run_closed_loop_bridge.mjs\n M tests/closed-loop.mjs\n?? pipeline/adapter-registry.mjs\n?? pipeline/bridge-adapters.mjs\n?? pipeline/objective-adapter.mjs\n?? tests/iteration-controller.mjs",
-      "timestamp": "2026-09-23T22:22:38.447Z",
+      "execution_head": "cd74e077d61cfcba91f8c53dbe8e6eeb4120285a",
+      "working_tree_status": "M README.md\n M closed_loop_bridge/trajectory/baseline_verification.json\n D closed_loop_bridge/trajectory/design_iteration_02.json\n M closed_loop_bridge/trajectory/feedback_for_iteration_02.json\n M closed_loop_bridge/trajectory/iteration_01_verification.json\n D closed_loop_bridge/trajectory/iteration_02_response.json\n D closed_loop_bridge/trajectory/preservation_verification.json\n D closed_loop_bridge/trajectory_comparison.json\n D closed_loop_bridge/trajectory_summary.md\n M main.tsx\n M package.json\n M pipeline/README.md\n M pipeline/bridge-backend.mjs\n M shared/Platform.tsx\n?? pipeline-ui/\n?? shared/SurfaceNavigation.tsx\n?? shared/surface-navigation.css\n?? tests/pipeline-preservation.mjs\n?? tests/pipeline-ui.mjs",
+      "timestamp": "2026-09-23T23:37:23.380Z",
       "execution_command": "npm run closed-loop:bridge",
       "node": "v24.21.0",
       "platform": "darwin",
@@ -5571,7 +5571,7 @@
         "public/cases/bridge/frame-element.mjs": "f18b410cc715ee3570e192b2c592492ecfc32cab2345fc5ba771af6959e51cc4"
       },
       "pipeline_sha256": {
-        "pipeline/bridge-backend.mjs": "31fce0149672fac5749e6144b7cab0d895149009e0c1610883fd6337f91fc799",
+        "pipeline/bridge-backend.mjs": "33a7d0d6969456201cc7fba1305d0c198d884888d39988055bbad4c16378955c",
         "pipeline/bridge-trajectory.mjs": "ba9d9f74d3e5f8e9404a9311d0b67aaede043304de7ae64458fd4a6a0faf37f3",
         "pipeline/iteration-controller.mjs": "b70063f21de6aab9765eb81d01c8bcc49c72d1e43d5ca606203f236b0d915219",
         "pipeline/objective-adapter.mjs": "3ede8b23314cc6ef8b4b8933d556cfd23b9281cbfb092eca5d92ce93360bc496",
@@ -5592,7 +5592,7 @@
       "policy_reference": "closed_loop_bridge/iteration_policy.json",
       "policy_sha256": "613f226149a0ecb1627b859fb6b59c46a6813d3c6e7a6235016534a17b0862db",
       "feedback_reference": "closed_loop_bridge/trajectory/feedback_for_iteration_02.json",
-      "feedback_sha256": "9559d436f703b51807279a2cd409a5dc2cd234bf893bd3ab2437ffa1ad8796b7",
+      "feedback_sha256": "ced03184b8cfc81a6b2b71ce2bdca3f34b08a3db79863b3e454ad6b32097e006",
       "unchanged_parameters": {
         "loadCase": "uniform",
         "pressure": 5,

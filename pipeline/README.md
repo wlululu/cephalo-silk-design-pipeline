@@ -130,3 +130,19 @@ This is deterministic multi-step design refinement of one idealized executable s
 `npm run test:closed-loop` first runs synthetic tests for both directions, improvement/worsening/equality, targets, invalid/nonfinite inputs, acceptance precedence, revision/range limits, adapter calls, forbidden updates, and no solve after stop. These are software tests only. It then compares regenerated Bridge records to immutable Git objects at `22fb33f4078dc56c920ee9296c442617749374b5`: complete raw responses (all nodes, reactions, member quantities and nonlinear history), diagnostics, parameters, cable transitions, section-property tradeoffs, and public stopping decisions must match exactly. Expected scientific data are never regenerated to make tests pass.
 
 Only execution metadata, policy structure/code hashes and dependent response/feedback hashes change. The original baseline and Iteration 01 DesignSpecs/responses, DesignSpec schema, source assets and validation records remain byte-identical. Iteration 02 retains identical engineering content; its execution provenance and dependent metadata hashes are refreshed by the same public reproduction command. The generated trajectory summary remains unchanged.
+
+## Preservation scope
+
+`verifyPreservation()` compares exact Git blob hashes against the validated
+Structural Lab source commit. Its explicit presentation-only exceptions are
+`main.tsx` (route composition) and `shared/Platform.tsx` (platform header and
+navigation). These files contain no structural model or mechanics calculations.
+The existing `README.md` and `package.json` documentation/package-script
+exceptions remain. No directory patterns or scientific files are exempted;
+case interfaces/renderers, model generators, geometry, solvers, hybrid/frame
+and cable formulations, workers, and original validation assets remain checked.
+
+`tests/pipeline-preservation.mjs` verifies the actual authorized UI shell and
+uses isolated file copies to prove that model and solver modifications still
+fail the same guard. Reruns refresh provenance and dependent record hashes;
+full scientific responses and trajectory decisions must still match exactly.

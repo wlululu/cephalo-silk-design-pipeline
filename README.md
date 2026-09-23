@@ -12,6 +12,14 @@ Image / Prompt / Design Intent → DesignSpec → Executable Structural Model �
 
 The closed-loop controller uses explicit objective and design-variable adapters. The verified Bridge adapters implement maximum deck displacement, `primaryScale`, a fixed `+0.25` update, and an illustrative target of at least 20% displacement reduction from baseline. New objectives or controlled parameters require implementing, registering, and validating the corresponding adapters; configuration alone cannot enable them.
 
+## Interactive Pipeline Explorer
+
+Run `npm run dev` and open `#/pipeline` (also the default route) to explore the
+verified Bridge trajectory, recorded controller decisions, physics checks, and
+section tradeoffs. Replay displays saved data; it does not execute the controller.
+The separate Structural Lab experiment pages remain at `#/bridge`, `#/loop-towers`,
+and `#/pavilion`, connected through the shared navigation.
+
 ## Design Iteration
 
 ### Objective

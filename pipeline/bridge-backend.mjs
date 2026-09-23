@@ -49,7 +49,11 @@ export function execute(spec,validator=validateSpec){
  return {parameters,model,result,affected,elapsed_seconds:(performance.now()-start)/1000};
 }
 export function verifyPreservation(){
- const allowed=new Set(['README.md','package.json']);
+ // Exact presentation-shell exceptions: route composition and platform identity/navigation.
+ // Neither file defines mechanics. Do not exempt case views, renderers, models or solvers.
+ const presentationFiles=['main.tsx','shared/Platform.tsx'];
+ // Retain the existing documentation/package-script exceptions; no wildcard directories.
+ const allowed=new Set(['README.md','package.json',...presentationFiles]);
  const files=git('ls-tree','-r','--name-only',SOURCE).split('\n'),entries={};
  for(const p of files){
   if(allowed.has(p))continue;
