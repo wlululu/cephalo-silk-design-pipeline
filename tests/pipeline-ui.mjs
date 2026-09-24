@@ -55,3 +55,30 @@ test('presentation does not mutate canonical inputs or turn missing flags into p
  assert.equal(state.checks[2].pass, false);
  assert.equal(state.checks[3].pass, undefined);
 });
+
+test('section detail reads the same generated arch member at a common physical scale', async () => {
+ const {createModel} = await import('../cases/bridge/model.mjs');
+ const {presentSectionDetail} = await import('../pipeline-ui/section-detail.mjs');
+ const details = explorer.states.map(state => {
+  const model = createModel(read(state.responsePath).parameters);
+  const before = JSON.stringify(model);
+  const detail = presentSectionDetail(model);
+  const member = model.members.find(member => member.id === detail.memberId);
+  assert.equal(member.system, 'primary_arch');
+  assert.strictEqual(detail.section, member.section);
+  assert.deepEqual(detail.nodeIds, [member.a, member.b]);
+  const location = detail.elevation.find(item => item.id === member.id);
+  assert.deepEqual(location.a, model.nodes[member.a].position);
+  assert.deepEqual(location.b, model.nodes[member.b].position);
+  assert.equal(JSON.stringify(model), before);
+  return detail;
+ });
+ assert.equal(new Set(details.map(detail => detail.memberId)).size, 1);
+ assert.equal(new Set(details.map(detail => detail.viewBox)).size, 1);
+ for (const detail of details) assert.deepEqual(detail.baselineSection, details[0].section);
+ assert.ok(Number(details[0].viewBox.split(' ')[2]) > Math.max(...details.map(detail => detail.section.outerDiameter)));
+ assert.ok(details[0].section.outerDiameter < details[1].section.outerDiameter);
+ assert.ok(details[1].section.outerDiameter < details[2].section.outerDiameter);
+ assert.ok(details[0].section.wallThickness < details[1].section.wallThickness);
+ assert.ok(details[1].section.wallThickness < details[2].section.wallThickness);
+});

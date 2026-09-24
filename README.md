@@ -1,5 +1,7 @@
 # Cephalo-Silk Design Pipeline
 
+**Live interactive site:** [Open the Cephalo-Silk Design Pipeline](https://wlululu.github.io/cephalo-silk-design-pipeline/#/pipeline)
+
 Cephalo-Silk Design Pipeline extends the [Cephalo-Silk Structural Lab](https://github.com/wlululu/cephalo-silk-structural-lab) from executable structural reconstructions toward a reusable physics-guided design workflow. It connects design representation to executable mechanics so that a design can be evaluated and iteratively revised against explicit requirements, with transparent, auditable design feedback.
 
 ## Workflow
@@ -14,11 +16,14 @@ The closed-loop controller uses explicit objective and design-variable adapters.
 
 ## Interactive Pipeline Explorer
 
-Run `npm run dev` and open `#/pipeline` (also the default route) to explore the
-verified Bridge trajectory, recorded controller decisions, physics checks, and
-section tradeoffs. Replay displays saved data; it does not execute the controller.
-The separate Structural Lab experiment pages remain at `#/bridge`, `#/loop-towers`,
-and `#/pavilion`, connected through the shared navigation.
+The [live interactive site](https://wlululu.github.io/cephalo-silk-design-pipeline/#/pipeline) provides two connected environments:
+
+- **Design Pipeline** — explores the generalized physics-guided workflow and the verified Bridge closed-loop trajectory, including saved structural states, controller decisions, physics checks, and section tradeoffs.
+- **Structural Lab** — provides the executable Bridge, Loop Towers, and Woven-Wing Pavilion structural environments, accessible from `#/structural-lab`.
+
+Replay in the Design Pipeline displays the saved verified trajectory; it does not rerun the controller.
+
+For local use, run `npm run dev` and open the URL printed by Vite.
 
 ## Design Iteration
 

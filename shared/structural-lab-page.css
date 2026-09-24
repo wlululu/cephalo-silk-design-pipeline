@@ -1,0 +1,10 @@
+.structural-lab-page{min-height:calc(100dvh - 169px);padding:42px clamp(16px,3vw,48px);background:#0b1725;color:#dfebf2;line-height:1.6}
+.structural-lab-page>p,.structural-lab-page>h1,.lab-landing-cases{max-width:1400px;margin-left:auto;margin-right:auto}
+.structural-lab-page h1{font-size:28px;font-weight:400;line-height:1.25;margin-bottom:12px}
+.structural-lab-page p{font-size:14px;color:#a8bfce}.structural-lab-page .lab-landing-kicker{font-size:10px;letter-spacing:.14em;color:#85d3d5}
+.lab-landing-cases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px;margin-bottom:28px}
+.lab-landing-cases>a{padding:24px;border:1px solid #30495b;border-radius:5px;background:#102132;color:#dfebf2}
+.lab-landing-cases>a:hover{border-color:#75dcdf}.structural-lab-page a:focus-visible{outline:2px solid #b7f2ef;outline-offset:3px}
+.lab-landing-cases span{font:11px ui-monospace,monospace;color:#85d3d5}.lab-landing-cases h2{font-size:20px;font-weight:400;margin:20px 0 10px}.lab-landing-cases p{font-size:12px}.lab-landing-cases strong{display:block;font-size:12px;font-weight:400;color:#8bdee0;margin-top:25px}
+.structural-lab-page .lab-landing-note{font-size:12px;border-top:1px solid #2a4052;padding-top:20px}.lab-landing-note a{color:#8bdee0}
+@media(max-width:760px){.lab-landing-cases{grid-template-columns:1fr}.structural-lab-page{padding-top:28px}.structural-lab-page h1{font-size:24px}}

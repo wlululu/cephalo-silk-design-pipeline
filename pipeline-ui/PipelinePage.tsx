@@ -3,6 +3,7 @@ import {CartesianGrid, Line, LineChart, ReferenceDot, ReferenceLine, ResponsiveC
 import BridgeView from '../cases/bridge/BridgeView';
 import {createModel} from '../cases/bridge/model.mjs';
 import {explorer} from './data.mjs';
+import SectionDetail from './SectionDetail';
 import {loadResponse} from './responses';
 import './pipeline.css';
 
@@ -80,6 +81,7 @@ export default function PipelinePage() {
     </div>
     <div className="pipeline-visual-note"><span>Drag to orbit · Scroll to zoom · Click a node</span><span>Primary sections {number(state.scale)}× · {deformed ? 'Displacement ×100 (display only)' : 'Authored geometry'}</span></div>
     {node !== null && record && <p className="pipeline-node">Node {node} · saved displacement [x, y, z]: {record.result.nodes[node].displacement.map((v:number) => number(v * 1000, 3)).join(', ')} mm</p>}
+    {model && <SectionDetail model={model} state={state}/>}
     <p className="pipeline-note">Saved verified response; no analysis is run here. Explore free structural experiments in <a href="#/bridge">Bridge Structural Lab →</a></p>
    </section>
    <section className="pipeline-panel pipeline-feedback" aria-labelledby="feedback-title">
