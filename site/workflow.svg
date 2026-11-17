@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 660" role="img" aria-labelledby="title desc">
+  <title id="title">3D Structural Studio research workflow</title>
+  <desc id="desc">Visual concepts are interpreted into explicit 3D structural models and numerically analyzed. Controlled H0–H3 structural hypotheses connect structural assumptions with mechanical consequences. Two complementary studies examine response allocation at fixed modeled mass and material allocation under performance constraints.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#408c9b"/></marker>
+    <style>
+      text {font-family: Arial, Helvetica, sans-serif; fill:#183146}
+      .small {font-size:20px;fill:#596d7b}
+      .kicker {font-size:17px; font-weight:700;letter-spacing:1.35px;fill:#367d8a}
+      .heading {font-size:28px;font-weight:700}
+      .subheading {font-size:26px;font-weight:700}
+      .note {font-size:19px;fill:#496170}
+      .border {stroke:#d5e1e7;stroke-width:2}
+      .line {stroke:#408c9b;stroke-width:3;fill:none;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1280" height="660" rx="22" fill="#ffffff"/>
+  <text x="45" y="40" class="kicker">IMAGE-INFORMED MODELING AND MECHANICS</text>
+  <rect x="45" y="73" width="358" height="166" rx="16" fill="#f3f8fa" class="border"/>
+  <text x="69" y="109" class="kicker">01 / CONCEPTS</text>
+  <text x="69" y="151" class="heading">Visual concepts</text>
+  <text x="69" y="188" class="small">Scientific-image reasoning</text>
+  <text x="69" y="216" class="small">and concept generation</text>
+  <path d="M 407 154 H 453" class="line"/>
+  <rect x="457" y="73" width="358" height="166" rx="16" fill="#f3f8fa" class="border"/>
+  <text x="481" y="109" class="kicker">02 / INTERPRETATION</text>
+  <text x="481" y="151" class="heading">Executable 3D models</text>
+  <text x="481" y="188" class="small">Explicit geometry, members,</text>
+  <text x="481" y="216" class="small">materials, supports and loads</text>
+  <path d="M 819 154 H 865" class="line"/>
+  <rect x="869" y="73" width="366" height="166" rx="16" fill="#f3f8fa" class="border"/>
+  <text x="893" y="109" class="kicker">03 / EVALUATION</text>
+  <text x="893" y="151" class="heading">Structural mechanics</text>
+  <text x="893" y="188" class="small">Computed responses and</text>
+  <text x="893" y="216" class="small">numerical verification</text>
+  <path d="M 1051 243 V 281" class="line"/>
+  <rect x="45" y="290" width="1190" height="128" rx="16" fill="#e9f3f5" stroke="#a2c9d0" stroke-width="2"/>
+  <text x="70" y="326" class="kicker">STRUCTURAL INTERPRETATION &amp; UNDERSTANDING</text>
+  <text x="70" y="366" class="subheading">H0–H3: Controlled structural hypotheses</text>
+  <text x="70" y="397" class="note">Compare hidden geometry and connectivity assumptions through mechanical consequences</text>
+  <path d="M 640 418 V 452" stroke="#408c9b" stroke-width="3" fill="none"/>
+  <path d="M 341 452 H 944" stroke="#408c9b" stroke-width="3" fill="none"/>
+  <path d="M 341 452 V 482" class="line"/>
+  <path d="M 944 452 V 482" class="line"/>
+  <text x="45" y="476" class="kicker">MECHANICS-GUIDED DESIGN</text>
+  <rect x="45" y="491" width="575" height="137" rx="16" fill="#f7f6fb" stroke="#dcd6eb" stroke-width="2"/>
+  <text x="70" y="525" class="kicker">STUDY I</text>
+  <text x="70" y="565" class="subheading">Response allocation</text>
+  <text x="70" y="597" class="note">Full H3 · fixed modeled mass · stiffness and prestress</text>
+  <rect x="660" y="491" width="575" height="137" rx="16" fill="#f7f6fb" stroke="#dcd6eb" stroke-width="2"/>
+  <text x="685" y="525" class="kicker">STUDY II</text>
+  <text x="685" y="565" class="subheading">Material allocation</text>
+  <text x="685" y="597" class="note">Idealized deck subsystem · gravity-aware · performance screens</text>
+</svg>
