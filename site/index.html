@@ -1,16 +1,97 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>3D Structural Studio</title>
-  <meta name="description" content="Image-informed executable 3D structural models and mechanics-grounded design research." />
-  <meta http-equiv="refresh" content="0; url=https://wlululu.github.io/cephalo-silk-structural-lab/" />
-  <style>body{font-family:Arial,Helvetica,sans-serif;max-width:45rem;margin:14vh auto;padding:1.5rem;color:#173047;background:#f8fafb;line-height:1.6}a{color:#126d85}h1{line-height:1.2}</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Research workflow connecting bioinspired visual concepts, explicit 3D structural interpretations, executable mechanics, and constraint-aware design studies." />
+  <title>Research Workflow | 3D Structural Studio</title>
+  <style>
+    :root {font-family:Arial,Helvetica,sans-serif;color:#1d3344;background:#f7fafb;font-synthesis:none}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;line-height:1.55}
+    a{color:#147388;text-underline-offset:3px}a:hover{color:#0d5063}
+    .wrap{width:min(1100px,calc(100% - 48px));margin-inline:auto}
+    header{background:white;border-bottom:1px solid #e0e9ec}
+    header .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:70px}
+    .brand{font-size:16px;font-weight:750;letter-spacing:.01em;text-decoration:none;color:#143446}
+    nav{display:flex;gap:24px;align-items:center;font-size:14px}nav a{text-decoration:none;color:#3d5969}
+    .hero{padding:72px 0 38px;background:linear-gradient(155deg,#eaf5f7 0%,#f7fafb 65%)}
+    .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.15em;font-weight:700;color:#237b89;margin:0 0 16px}
+    h1{font-weight:700;font-size:clamp(35px,5.6vw,62px);line-height:1.1;letter-spacing:-.035em;max-width:900px;margin:0 0 22px}
+    .lead{font-size:17px;line-height:1.7;color:#4a6170;max-width:835px;margin:0}
+    .hero-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+    .primary,.secondary{font-size:14px;font-weight:700;text-decoration:none;display:inline-block;border-radius:7px;padding:11px 16px}
+    .primary{color:white;background:#147388}.primary:hover{background:#0c5569;color:white}
+    .secondary{color:#1a5261;border:1px solid #bdd0d7;background:white}
+    section{padding:46px 0}h2{margin:0 0 10px;font-size:28px;letter-spacing:-.02em}
+    .section-intro{color:#5a707e;margin:0 0 22px;max-width:760px}
+    .figure{background:white;border:1px solid #e0e9ed;border-radius:15px;padding:14px;box-shadow:0 3px 18px rgba(14,48,68,.035)}
+    .figure img{display:block;width:100%;height:auto}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .card{background:white;border:1px solid #dce6e9;border-radius:12px;padding:26px;display:flex;flex-direction:column;align-items:flex-start}
+    .card .eyebrow{margin:0 0 11px}.card h3{margin:0 0 11px;font-size:22px;letter-spacing:-.015em}
+    .card p{color:#506875;margin:0 0 18px}.card a{font-weight:700;font-size:14px;margin-top:auto}
+    .facts{margin-top:22px;padding:22px 0;border-top:1px solid #dbe6e9;color:#4c626f}
+    .examples{background:#f0f6f8}.links{display:flex;gap:22px;flex-wrap:wrap;margin-top:16px}
+    footer{padding:26px 0 38px;border-top:1px solid #dce7e9;font-size:13px;color:#617582}
+    @media(max-width:760px){.wrap{width:min(100% - 28px,1100px)}nav{gap:12px;flex-wrap:wrap;justify-content:flex-end}header .wrap{min-height:78px}.hero{padding:50px 0 34px}.two{grid-template-columns:1fr}.figure{overflow-x:auto}.figure img{min-width:570px}}
+  </style>
 </head>
 <body>
-  <h1>3D Structural Studio</h1>
-  <p>From Bioinspired Images to Executable Structural Models</p>
-  <p>Explore the <a href="https://wlululu.github.io/cephalo-silk-structural-lab/">interactive structural modeling and research platform</a>.</p>
+  <header>
+    <div class="wrap">
+      <a class="brand" href="./">3D STRUCTURAL STUDIO</a>
+      <nav aria-label="Site navigation">
+        <a href="#methodology">Methodology</a>
+        <a href="#studies">Design studies</a>
+        <a href="https://wlululu.github.io/cephalo-silk-structural-lab/">Interactive Studio</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="hero"><div class="wrap">
+      <p class="eyebrow">Research methodology</p>
+      <h1>From visual concepts to mechanically testable structures.</h1>
+      <p class="lead">3D Structural Studio connects bioinspired visual concepts, AI-assisted interpretation, explicit three-dimensional structural models, numerical mechanics, and constraint-aware structural design. The workflow links structural assumptions with their computed mechanical consequences.</p>
+      <div class="hero-links">
+        <a class="primary" href="https://wlululu.github.io/cephalo-silk-structural-lab/">Explore 3D Structural Studio</a>
+        <a class="secondary" href="https://github.com/wlululu/cephalo-silk-structural-lab">Source &amp; documentation</a>
+      </div>
+    </div></div>
+    <section id="methodology"><div class="wrap">
+      <h2>Research workflow</h2>
+      <p class="section-intro">Image-informed concepts become explicit structural interpretations. Deterministic mechanics supports numerical verification, hypothesis comparison, and the two complementary design investigations.</p>
+      <div class="figure"><img src="workflow.svg" alt="Workflow: visual concepts to executable 3D models, structural mechanics, H0–H3 interpretation and mechanical understanding, then complementary response-allocation and material-allocation studies." /></div>
+      <p class="facts">AI-assisted interpretation is combined with researcher review; each model specifies its structural assumptions, and case-specific mechanics solvers evaluate its response.</p>
+    </div></section>
+    <section id="studies" class="examples"><div class="wrap">
+      <h2>Mechanics-guided design studies</h2>
+      <p class="section-intro">Two complementary questions connect structural understanding to design decisions under explicit computational constraints.</p>
+      <div class="two">
+        <article class="card">
+          <p class="eyebrow">Study I · Full H3 system</p>
+          <h3>Mechanics-Constrained Response Allocation</h3>
+          <p>Examines how stiffness and prestress allocation influence displacement, bending, and stress under fixed modeled-member mass and inherited pressure/prestress loading.</p>
+          <a href="https://wlululu.github.io/cephalo-silk-structural-lab/#/research/H3">Explore structural interpretation</a>
+        </article>
+        <article class="card">
+          <p class="eyebrow">Study II · Idealized deck subsystem</p>
+          <h3>Performance-Constrained Material Allocation</h3>
+          <p>Investigates targeted member sizing with current-section self-weight and prescribed mechanical screening criteria. The studied configuration reduces modeled tube mass by 2.7658% within this subsystem.</p>
+          <a href="https://wlululu.github.io/cephalo-silk-structural-lab/#/research/B1">Explore material allocation</a>
+        </article>
+      </div>
+    </div></section>
+    <section id="resources"><div class="wrap">
+      <h2>Models, code &amp; research data</h2>
+      <p class="section-intro">Explore the Twin-Arch Web Bridge, Loop Towers and Woven-Wing Pavilion models, as well as H0–H3 interpretations and the design studies.</p>
+      <div class="links">
+        <a href="https://wlululu.github.io/cephalo-silk-structural-lab/">Interactive Studio</a>
+        <a href="https://github.com/wlululu/cephalo-silk-structural-lab">Source &amp; documentation</a>
+        <a href="https://github.com/wlululu/cephalo-silk-structural-lab/releases/tag/research-viewer-minimal-v1">Research data</a>
+        <a href="https://github.com/wlululu/cephalo-silk-structural-lab/releases/tag/bridge-cv-v1">Independent numerical verification</a>
+      </div>
+    </div></section>
+  </main>
+  <footer><div class="wrap">3D Structural Studio · Image-informed structural interpretation, executable mechanics, and constraint-aware design.</div></footer>
 </body>
 </html>
