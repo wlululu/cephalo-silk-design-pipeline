@@ -17,6 +17,3 @@
 - [Interactive Studio](https://wlululu.github.io/cephalo-silk-structural-lab/)
 - [Application source and documentation](https://github.com/wlululu/cephalo-silk-structural-lab)
 - [Versioned research data](https://github.com/wlululu/cephalo-silk-structural-lab/releases/tag/research-viewer-minimal-v1)
-- [Independent original Bridge numerical comparison](https://github.com/wlululu/cephalo-silk-structural-lab/releases/tag/bridge-cv-v1)
-
-The earlier deterministic Bridge section-iteration controller and its recorded trajectory are preserved in the [Design Pipeline v1 source archive](https://github.com/wlululu/cephalo-silk-design-pipeline/tree/design-pipeline-legacy-v1). That example is distinct from the two design studies above.
